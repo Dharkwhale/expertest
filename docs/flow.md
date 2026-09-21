@@ -170,6 +170,7 @@ The exports are about 190–300px wide. Small text on ex6, ex9, ex10, ex15 and e
 - **Q7 (M5):** Entry to ex25: tapping a "Quick one" reaction on S13 opens the full-screen version. OK?
 - **Q8 (M4):** USDC: drop the gas line (zero gas) and default the network to Base?
 - **Q9 (M3/M6):** Remove the ex14 add-on stepper, and hide Join / Create Squad when the user is already in a squad?
+  **Answered 2026-09-21 (add-on half):** remove the ex14 "Wristband Sync & Spatial Memory" add-on stepper "for now". The Join / Create Squad half stays open until M6.
 - **Q10 (M1):** Fonts: use the ex1 system (Anton / Space Grotesk / JetBrains Mono) everywhere?
   **Answered 2026-09-21:** use two fonts only. **Anton** for headlines, **Space Grotesk** for body *and* labels. JetBrains Mono is dropped; labels become Space Grotesk, uppercase, wide tracking.
 - **Q11 (M1):** Stack: the repo is empty. Proposed: **Vite + React + React Router + Tailwind**, since this is a mock-data SPA and doesn't need SSR. Or Next.js?

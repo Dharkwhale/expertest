@@ -25,6 +25,18 @@
 - **Found:** 2026-09-21, noticed during the M1 scaffold
 - **Problem:** Nothing guards the behaviour a typecheck can't catch: nav active-state logic (`isActive` in `src/components/nav/nav-items.ts`), Modal open / close / backdrop handling, and, from M3, checkout maths (tier × quantity, fees-included ₦ totals, USDC conversion). A regression in any of those would only be caught by hand.
 - **Fix:** Before M3 (payments), add Vitest + Testing Library. Ask first, because new libraries need approval under CLAUDE.md §5. Start with `isActive` and the price helpers. Verify with `npm test`.
+- **Update 2026-09-21:** Vitest 5.0.1 approved and installed (`npm test`, `vitest.config.mts`, node environment, pure logic only). 14 tests cover `isActive`, `readViewState`, the format helpers and the mock-data helpers. **Still open:** the M3 checkout maths (tier × qty totals, USDC) must get tests as it's written. Testing Library wasn't requested, so there are no component tests.
+- **Update 2026-09-21 (M3):** checkout maths is covered test-first: `src/lib/order.test.ts` (parsing hostile URL input, the 4-pass cap, the bundle = 4 rule, totals, USDC rounding, the round trip) and `src/lib/checkout.test.ts`. 45 tests pass. What remains is component-level tests (would need Testing Library, not approved).
+- **Status:** partially fixed (logic covered; components not)
+
+### GAP-009 — Any valid order URL renders a pass (no payment record)
+
+- **Category:** security
+- **Severity:** low (mock only; must be fixed before any real payments)
+- **Location:** `src/app/(checkout)/events/[eventId]/pass/page.tsx:43` (`paid` = the URL has a valid order + a method)
+- **Found:** 2026-09-21, M3 plan §3 (declared up front, accepted for V1)
+- **Problem:** The pass page trusts the URL: `/events/neon-solstice/pass?general=1&method=card` shows a pass without anyone paying. That's fine in a no-backend mock, but a real build must never mint or show a pass from client-supplied state.
+- **Fix:** When a backend exists, S08's Pay creates the order server-side and S11 loads `/pass/:orderId` from it (record the contract in api-integration.md first, CLAUDE.md §8 rule 3). Verify: a hand-typed pass URL shows OrderProblem.
 - **Status:** open
 
 ### GAP-007 — Buy flow only exists for Neon Solstice; "Join experience" 404s until M3
@@ -35,7 +47,7 @@
 - **Found:** 2026-09-21, building S05
 - **Problem:** Every event's Details page links to `/events/:id/access`. That route is built in M3 and 404s until then. After M3 it will still only have tiers for Neon Solstice: Sound/Scape, Art X, Midnight Drift and Solar Pulse have no ticket data in any design.
 - **Fix:** In M3, ask the user what non-Neon events do: reuse the ex9 tiers, hide the CTA, or show "Tickets not on sale yet". Verify by clicking Join on `/events/sound-scape`.
-- **Status:** open
+- **Status:** fixed 2026-09-21 (M3). The user chose D4 (a): Select Access (and every later step) shows "Tickets for {event} aren't on sale yet" + an Explore link, via `resolveCheckout` → `not-on-sale` (`src/lib/checkout.ts`). Tested in `src/lib/checkout.test.ts`; screenshot-verified on `/events/sound-scape/access`. Move to Closed with the M3 merge commit.
 
 ### GAP-006 — No skip-to-content link
 

@@ -8,6 +8,7 @@ export type Person = {
   id: string;
   name: string;
   handle?: string;
+  email?: string;
   avatar?: string;
   tone?: Tone;
 };
@@ -77,8 +78,9 @@ export type Tier = {
   tagline: string;
   description: string;
   priceNgn: number;
-  priceUsdc?: number;
   per: string;
+  /** Passes one unit uses up against the 4-per-person cap (Squad Bundle admits 4) */
+  passes: number;
   perk: string;
   badge?: string;
 };
@@ -89,6 +91,8 @@ export const currentUser: Person = {
   id: "u-tope",
   name: "Tope Banjo",
   handle: "@stellar_01",
+  // ex14 is the only screen with an email (it names "Tope Adebayo"; the name is canonicalised)
+  email: "tope@exper.io",
   avatar: unsplash("1632765854612-9b02b6ec2b15"),
 };
 
@@ -254,7 +258,7 @@ export const attendeePreview: string[] = [
   unsplash("1601412436009-d964bd02edbc"),
 ];
 
-// ex9. Price is fees-included (flow.md §5). USDC is only known for General Access.
+// ex9. Prices are fees-included (flow.md §5). USDC is derived from NGN_PER_USDC for every tier.
 export const tiers: Tier[] = [
   {
     id: "general",
@@ -263,8 +267,8 @@ export const tiers: Tier[] = [
     description:
       "Full entry to main arena, crowd pulse sensor synchronization, and interactive real-time projection installations.",
     priceNgn: 25000,
-    priceUsdc: 16.5,
     per: "person",
+    passes: 1,
     perk: "Available now",
     badge: "Popular choice",
   },
@@ -276,6 +280,7 @@ export const tiers: Tier[] = [
       "Priority fast-track entry, sound mezzanine access, bespoke frequency stream & private curated cocktail bar.",
     priceNgn: 65000,
     per: "person",
+    passes: 1,
     perk: "Exclusive lounge pass",
     badge: "16 left",
   },
@@ -287,12 +292,37 @@ export const tiers: Tier[] = [
       "Group access with synchronized squad avatars, collaborative memory timelines, and fast group entry check-in.",
     priceNgn: 85000,
     per: "4 guests",
+    passes: 4,
     perk: "Squad sync enabled",
     badge: "Save 15%",
   },
 ];
 
 export const MAX_PASSES_PER_PERSON = 4;
+
+// The one canonical pair (flow.md §5): ₦25,000 ≈ 16.50 USDC. Every tier converts at this rate.
+export const NGN_PER_USDC = 25000 / 16.5;
+
+// ex9 event strip on Select Access + its two handwritten asides (rendered in Space Grotesk
+// italic: the script face isn't one of the two approved fonts, Q10).
+export const accessPage = {
+  highlights: ["Instant QR access", "Memory mint", "Sensory sync"],
+  cardAside: "the room is alive!",
+  totalAside: "almost full tonight!",
+};
+
+// ex20 pass details. Deterministic mock values: there is no real payment record in V1.
+export const passTemplate = {
+  number: 42,
+  credential: "EXP-9042-SOL",
+  serial: "8020 4918 9042",
+  earlySync: "7:30 PM",
+  entryProtocol:
+    "Kuro / reflective dress code recommended. High-fidelity acoustic ear filters provided complimentary at gate synchronization.",
+};
+
+// ex14 "Mastercard •••• 4821 · Secured via Paystack": display text only. No card data exists anywhere.
+export const savedCard = { brand: "Mastercard", last4: "4821", processor: "Paystack" };
 
 // flow.md §5: The Neon Nomads, 8 people. Named members from ex26.
 export const squad = {
