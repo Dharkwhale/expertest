@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* Tailwind 4.3's automatic scan skips dynamic-route folders like [eventId] (no classes
+   from src/app/(detail)/events/[eventId]/page.tsx were generated). Register src/app
+   explicitly. Found 2026-09-21 while building S05. */
+@source "../app";
+
+/*
+ * Design tokens. Source: designs/ex1.png (design system) and ex2.png (splash).
+ * Documented in docs/ai-memory/frontend-conventions.md. Add a token there first, then here.
+ * Tailwind's default palette is cleared so a colour that isn't a token can't be used.
+ */
+@theme {
+  --color-*: initial;
+
+  /* ex1 brand */
+  --color-primary: #d2ff00;
+  --color-secondary: #00d2ff;
+  --color-tertiary: #8b5cf6;
+  --color-ink: #08080c; /* text on primary / inverted surfaces */
+
+  /* ex1 neutral scale: 950/900/800/700/500 sampled from ex3 + ex16; 400/200/50 derived */
+  --color-neutral-950: #08080c;
+  --color-neutral-900: #131418;
+  --color-neutral-800: #1f2128;
+  --color-neutral-700: #2a2b30;
+  --color-neutral-500: #6f727d;
+  --color-neutral-400: #9a9ca5;
+  --color-neutral-200: #d4d5da;
+  --color-neutral-50: #f5f5f7;
+
+  /* ex2 splash gradient, sampled */
+  --color-splash-violet: #8b23ab;
+  --color-splash-olive: #789b1b;
+  --color-splash-teal: #0e6567;
+  --color-splash-rose: #c5515a;
+  --color-splash-ember: #c94829;
+  --color-splash-deep: #290a14;
+
+  /* Fluid type: headings scale with clamp(), not per-breakpoint jumps */
+  --text-hero: clamp(3.5rem, 2.4rem + 5.5vw, 7rem); /* splash wordmark */
+  --text-hero--line-height: 1;
+  --text-display: clamp(2.25rem, 1.6rem + 3.2vw, 4rem);
+  --text-display--line-height: 1;
+  --text-title: clamp(1.625rem, 1.3rem + 1.6vw, 2.5rem);
+  --text-title--line-height: 1.05;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1rem;
+  --text-label--letter-spacing: 0.14em;
+
+  --radius-card: 1.25rem;
+  --radius-thumb: 0.75rem; /* thumbnails inside cards (ex3 Sound/Scape, ex7 For you) */
+
+  --shadow-glow: 0 0 28px color-mix(in oklab, var(--color-primary) 30%, transparent);
+}
+
+/* Fonts come from next/font CSS variables set on <html>, so this block is `inline` */
+@theme inline {
+  --font-*: initial;
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+}
+
+/* Labels: Space Grotesk uppercase + wide tracking (replaces ex1's JetBrains Mono, Q10) */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+@utility bg-splash {
+  background-color: var(--color-splash-deep);
+  background-image:
+    radial-gradient(60% 42% at 18% 16%, var(--color-splash-violet), transparent 70%),
+    radial-gradient(50% 36% at 88% 12%, var(--color-splash-olive), transparent 70%),
+    radial-gradient(46% 38% at 92% 46%, var(--color-splash-teal), transparent 70%),
+    radial-gradient(56% 40% at 14% 62%, var(--color-splash-rose), transparent 70%),
+    radial-gradient(62% 42% at 34% 90%, var(--color-splash-ember), transparent 72%);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  /* Mobile body text runs 2px under desktop */
+  body {
+    background-color: var(--color-neutral-950);
+    color: var(--color-neutral-50);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (width >= 48rem) {
+    body {
+      font-size: 1rem;
+    }
+  }
+
+  /* Tailwind v4 preflight resets buttons to cursor: default. Controls marked
+     aria-disabled (no screen yet, flow.md §3) keep the default cursor. */
+  button:not(:disabled, [aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

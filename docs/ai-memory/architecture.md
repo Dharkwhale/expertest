@@ -1,0 +1,101 @@
+# Architecture
+
+> The mental model a senior engineer would hand a new hire: how this project is put
+> together and **why** the big decisions were made. Maintained by the
+> `document-architecture` skill; updated by `distill-session` when decisions change.
+>
+> **Status: M1 built (2026-09-21).** The system map below reflects the real tree after
+> M1 (the scaffold, shell, nav, shared components and splash). Run `document-architecture`
+> next to check this against the code and capture any "why" still missing.
+
+## Mental model
+
+Exper V1 is a live-experience platform built as a **UI-only prototype**. Every screen
+belongs to one stage of a single journey: **Discover → Buy → Attend → Participate →
+Generate → Remember**. The flow is the product; the logic of moving between stages matters
+more than any single screen.
+
+Source designs are 27 AI-generated Stitch exports in `designs/`. They're a strong
+reference but may be wrong (misordered, duplicated, inconsistent). Fixing them is part of the job,
+within the limits in CLAUDE.md §1.
+
+There is no backend in V1. All data comes from one `mock/` layer, so data-driven views
+still need loading / error / empty / success states, driven by that mock layer.
+
+## System map
+
+| Path | Owns | Notes |
+|---|---|---|
+| `src/app/layout.tsx` | root HTML, fonts, metadata, viewport | the only `<html>`/`<body>`; Anton + Space Grotesk via `next/font` |
+| `src/app/globals.css` | **all design tokens** (`@theme`), `label-caps` and `bg-splash` utilities | Tailwind v4: there's no `tailwind.config.js`; default palette cleared |
+| `src/app/page.tsx` | S01 Splash route `/` | outside `(tabs)`: no nav |
+| `src/app/(tabs)/layout.tsx` | app shell: TopNav (md+), BottomTabBar (mobile), page container | wraps every screen that shows the tab bar |
+| `src/app/(tabs)/{home,explore,live,moments,you}/page.tsx` | the 5 tab routes | home + explore built (M2); live, moments, you are placeholders until M4 / M7 |
+| `src/app/welcome/page.tsx` | S02 Lander: own header, no nav | first visit only (`lib/first-visit.ts`) |
+| `src/app/(detail)/events/[eventId]/page.tsx` | S05 Event Details | the `(detail)` layout is TopNav only; the screen owns its bottom CTA |
+| `src/components/{events,explore,lander,event-details}/` | M2 screen pieces: event cards, Explore feed, Lander worlds, Details aside/story | shared cards live in `events/` |
+| `src/components/nav/` | `nav-items.ts` (single tab list), `BottomTabBar`, `TopNav` | both navs render from the one list |
+| `src/components/ui/` | shared primitives: Button/ButtonLink, IconButton, Chip, LiveBadge, Avatar, AvatarStack, SectionLabel, Modal | extract new shared UI here on first use |
+| `src/components/` | screen-level pieces: `Splash`, `Wordmark`, `PlaceholderScreen`, `icons.tsx` | |
+| `src/mock/data.ts` | **the only data source**: user, events, tiers, squad, moments | later milestones extend this file |
+| `src/lib/` | `unsplash.ts` (image URL builder + allowed query), `cx.ts` | `next.config.ts` imports `UNSPLASH_SEARCH` |
+
+**Route groups.** `(tabs)` holds screens with the tab bar. Full-screen flows (checkout
+S06–S10, prompts S15–S17, Pocket Mode S14, Leaderboard S20) go in sibling groups with
+their own layouts, even when they share a URL prefix (`/live` vs `/live/prompts/*`).
+
+## Data flow
+
+UI → `mock/` → render. No network calls, no persistence decided yet. If a real backend
+is introduced, its contract goes in `api-integration.md` first and this section is rewritten.
+
+## Key decisions
+
+Append-only. Supersede with a new row; never delete.
+
+| Date | Decision | Why | Alternatives rejected |
+|---|---|---|---|
+| 2026-09-21 | One responsive component per screen (base mobile, `md` 768, `lg` 1024) | Designs are mobile-only; one source of markup avoids desktop/mobile drift | Separate desktop components (duplicated markup) |
+| 2026-09-21 | Mock data only, from a single `mock/` file | V1 is a UI prototype; no backend exists | Calling a real/stub API |
+| 2026-09-21 | Mobile bottom tab bar → desktop top nav, no sidebar | Keeps the same nav items across breakpoints (CLAUDE.md §6.1) | Sidebar layout |
+| 2026-09-21 | Colours, fonts and visual style can't change without asking; flow/order/labels may be fixed | Designs are the visual authority but not the flow authority | Free redesign |
+| 2026-09-21 | Screen IDs (`S01`…) follow journey order, not design image numbers | Printed numbers on the designs collide and are out of order | Using `exN` numbers as IDs |
+| 2026-09-21 | Screen status tracked only in `milestones.md`; `progress.md` logs decisions and fixes | Avoid two trackers drifting apart | Logging "built X" in both |
+
+| 2026-09-21 | Next.js (App Router) + Tailwind CSS, TypeScript | User's choice (Q11); matches their other projects | Vite + React Router (proposed in Phase 0) |
+| 2026-09-21 | Two fonts: Anton (headlines) + Space Grotesk (body and labels) | User asked for 2 of ex1's 3. Anton carries the poster-style brand voice; labels get a distinct style from uppercase + tracking instead of a third face | Keeping JetBrains Mono for labels; dropping Anton |
+| 2026-09-21 | Mock data kept exactly as the canonical values in flow.md §5 | User's choice (Q6) | Renaming the handle / squads / lineup act |
+| 2026-09-21 | Images from Unsplash only, served from `images.unsplash.com` via `next/image` | Unsplash license allows free use; hotlinking is what Unsplash's guidelines expect | Pinterest (unlicensed re-pins, unstable URLs) |
+| 2026-09-21 | Icons are hand-written inline SVG components, not an icon package | CLAUDE.md §5 forbids new libraries without asking; the icon set is small | lucide-react / heroicons |
+| 2026-09-21 | Route groups split tabbed screens from full-screen ones | flow.md says the tab bar shows on some routes and not others, even under the same path prefix (`/live` vs `/live/prompts/*`) | Toggling nav visibility per page |
+| 2026-09-21 | `(detail)` route group: top nav on md+, no tab bar, screen owns its bottom CTA | flow.md hides the tab bar on S05; desktop still needs a way out of a deep page | Putting details in `(tabs)` and hiding the bar per page |
+| 2026-09-21 | Data states are per-section, reviewable via `?state=loading\|error\|empty` (`lib/view-state.ts`, allow-listed) | Mock data is synchronous, so non-ready states are otherwise unreachable for review (user's pick, M2). Cost: those 4 routes render dynamically (GAP-008) | Route-level `loading.tsx`/`error.tsx`; an artificial delay |
+| 2026-09-21 | Back button uses an in-app route counter (`nav/NavigationTracker.tsx`), not `history.length` | `history.length` counts pre-app pages, so Back on a deep link left the site (reproduced in S05 verification) | `history.length > 1`; `document.referrer` |
+| 2026-09-21 | Controls whose screen doesn't exist render as designed but `aria-disabled` (`UnavailableButton`, `IconButton unavailable`) | User's pick, M2: keeps design fidelity, no dead clicks, announced as "not available yet" | Hiding them; dimming them |
+| 2026-09-21 |  route group: top nav on md+, no tab bar, screen owns its bottom CTA | flow.md hides the tab bar on S05; desktop still needs a way out of a deep page | Putting details in  and hiding the bar per page |
+| 2026-09-21 | Data states are per-section and reviewable via  (, allow-listed) | Mock data is synchronous, so non-ready states are otherwise unreachable for review (user pick, M2) | Route-level /; an artificial delay |
+| 2026-09-21 | Back button uses an in-app route counter (), not  |  counts pre-app pages, so a deep link's Back left the site (reproduced) | ;  |
+| 2026-09-21 | Controls with no screen render as designed but  (, ) | User pick, M2: keeps design fidelity without dead clicks; announced as "not available yet" | Hiding them; dimming them |
+
+## Gotchas (non-obvious things that will bite you)
+
+- `designs/ex1.png` is the **design-system sheet**, not a screen. Tokens come from it.
+- 26 screen images collapse to **23 unique screens** after merging duplicates (`docs/flow.md`).
+- The **Generate** stage has **no designs at all**. Don't build it without an answer to Q1.
+- Lock-screen notification designs (ex22, ex23) can't be real OS lock screens on the web (Q4).
+- **Tailwind 4.3 auto-detection skipped ** (no classes generated from it, dev or build).  now has . Don't remove it; every M3 checkout route lives under .
+- The dev server caches Tailwind's file list: classes in a brand-new file may not appear until the server restarts.
+- **Tailwind 4.3's auto-detection skipped `src/app/(detail)/events/[eventId]/`**: no classes from it were generated, in dev or build. `globals.css` has `@source "../app";` to fix it. Don't remove it: every M3 checkout route lives under `[eventId]`.
+- The dev server caches Tailwind's file list. Classes in a brand-new file can be missing until the dev server restarts; check the compiled CSS before debugging layout.
+- React Strict Mode runs effects twice in dev. Module-level counters must count *changes*, not effect runs (see `NavigationTracker`).
+- Claude never runs git write commands in this repo (CLAUDE.md §3). It suggests commit messages only.
+
+## Glossary
+
+| Term | Meaning |
+|---|---|
+| Journey stage | One of Discover / Buy / Attend / Participate / Generate / Remember |
+| `S01`…`S23` | Canonical screen IDs, in journey order (defined in `docs/flow.md`) |
+| `exN` | Source design image `designs/exN.png` |
+| M1…M7 | Milestones in `docs/milestones.md` |
+| Squad | Group of attendees during live participation |
