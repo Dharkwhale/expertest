@@ -50,14 +50,14 @@ Every data-driven view also gets loading / error / empty states, driven by the m
 
 ## M4 — Buy (USDC path) + Attend
 **Screens**
-- [ ] S09 Connect Wallet (ex17): `/events/:eventId/checkout/wallet`
-- [ ] S10 Confirm Payment, USDC (ex11): `/events/:eventId/checkout/crypto` (pending Q8)
-- [ ] S12 Pre-event notification (ex23): pending Q4
-- [ ] S13 Live Experience (ex5): `/live`
+- [x] S09 Connect Wallet (ex17): `/events/:eventId/checkout/wallet`
+- [x] S10 Confirm Payment, USDC (ex11): `/events/:eventId/checkout/crypto` (Q8: no gas line, network defaults to Base)
+- [x] S12 Pre-event notification (ex23): in-app card at the top of `/home` (Q4 a, D5 a)
+- [x] S13 Live Experience (ex5): `/live`
 
 **Introduces:** `StepIndicator`, `WalletOption`, `NotificationCard`, `SpaceRow` (live space list), `ReactionPicker`
 
-**Done when:** the USDC path reaches the same confirmation as the card path, and "Enter Hub" / "Open Exper" land on Live Experience. Check-in follows Q2.
+**Done when:** the USDC path reaches the same confirmation as the card path, and "Enter Hub" / "Open Exper" land on Live Experience. No check-in screen: the S11 pass barcode is the gate pass (Q2 a).
 
 ---
 

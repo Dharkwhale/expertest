@@ -239,3 +239,55 @@ export function MoreIcon(props: IconProps) {
     </Svg>
   );
 }
+
+// ex5 Quick one reactions
+export function WaveIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 12c1.5-3 3-3 4.5 0s3 3 4.5 0 3-3 4.5 0 3 3 4.5 0" />
+    </Svg>
+  );
+}
+
+export function MoonIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" />
+    </Svg>
+  );
+}
+
+export function FlameIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3c.5 3.5 5 5.5 5 10.5a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 .3 1.7 1 2.7 2 3 0-3-.5-5.5.5-8.5z" />
+    </Svg>
+  );
+}
+
+// ex11 network row: a generic chain mark (no brand logos)
+export function NetworkIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3 5.5 12 12 21l6.5-9z" />
+      <path d="M5.5 12 12 15l6.5-3" />
+    </Svg>
+  );
+}
+
+export function ChevronDownIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m6 9 6 6 6-6" />
+    </Svg>
+  );
+}
+
+export function CheckCircleIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="m8.5 12 2.5 2.5 4.5-5" />
+    </Svg>
+  );
+}

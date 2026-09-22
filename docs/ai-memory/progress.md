@@ -17,6 +17,40 @@
 - **Next / open threads:** <what a fresh session should pick up>
 -->
 
+## 2026-09-22 — M4 Buy (USDC path) + Attend built (awaiting user checkpoint)
+
+- **Done:** S09 Connect Wallet, S10 Confirm USDC, S13 Live Experience and the S12 notification card on Home, per `docs/plans/m4-usdc-attend.md` (D5–D9 all option a). Verified:
+  - tsc 0, eslint 0, 52 unit tests (7 new: wallet allowlist, USDC route params, 16.50 total);
+  - CDP full-page shots at 375/768/1280 × 13 screen/state combos, none with horizontal overflow;
+  - a 25-check scripted walk: S06 → S07 (USDC) → S09 → MetaMask → S10 → Confirm → S11 → Enter Hub → /live, plus declined, a bad wallet, Cancel → S07 with USDC pre-selected, Home card → /live, and dismissal persisting.
+- **Design fixes (M4):**
+  - ex17: "General Access • Lagos Hall" → the ordered tier(s) + canonical venue; amounts computed; wallet logos → token monogram tiles.
+  - ex11: "1X Nomad Access" → the ordered tier(s); Sound/Scape's subtitle → Neon Solstice's; gas line, "+0.0006 ETH" and "15 gwei" removed (Q8); network defaults to Base; "ID: #EXP-9920" dropped (it clashes with the S11 pass credential); "Checkout protocol" pill → "Step 3 of 3" to match ex17.
+  - ex5: "North Pavilion" → Resonance Pavilion; ✕ → Pocket Mode; headline in Anton; green dots → primary; orange flame → neutral-50; reactions get accessible names (Flowing / Electric / Calm / Fiery; Electric and Calm reuse ex16's scale).
+  - ex23: lock-screen chrome dropped; "starts in 30 minutes" → "is happening now" (D5); a ✕ dismiss added (D5 "dismissible").
+- **Structure:** `/live` moved from `(tabs)` into a new `(live)` group (no footer, D9). `CheckoutHeader` gained `close`. `PayButton` gained `method`.
+- **Process note:** `tsc` in the user's folder reports a stale `.next/types/validator.ts` entry for the old `(tabs)/live` path. The user's running dev server generated that file, and it clears on restart; the isolated build is the check.
+- **Docs updated:** milestones.md (M4 ticked), architecture.md (4 decisions + system map), gaps.md (GAP-008 widened), frontend-conventions.md (M4 patterns), plan status
+- **Gaps:** GAP-008 widened to /live, S09, S10. None opened.
+- **Next / open threads:** the user reviews the M4 PR and merges. M5 = S14 Pocket Mode, S15/S16 prompts, S17 pulse; Q7 (reaction → ex25) is still open. S13's links to S14/S15/S16/S19 404 until then (D8).
+
+## 2026-09-22 — M4 prep: Q2, Q4, Q8 answered; M4 plan drafted
+
+- **Answered:**
+  - Q2 (a): no check-in screen; the S11 pass barcode is the gate pass.
+  - Q4 (a): lock-screen notifications (ex23, ex22) become in-app banners.
+  - Q8: no gas line on S10; the network dropdown defaults to Base.
+- **Done:**
+  - Branch `feat/m4-attend`, stacked on `feat/site-footer` (that footer PR isn't merged yet).
+  - Plan `docs/plans/m4-usdc-attend.md` drafted, with decisions D5–D9 open.
+- **Design problems found while planning:**
+  - ex5 "North Pavilion" isn't the canonical venue → Resonance Pavilion.
+  - ex23 "starts in 30 minutes" contradicts Neon Solstice being live (D5).
+  - ex11 "15 gwei" is a gas unit → dropped with the gas line.
+- **Docs updated:** flow.md (Q2/Q4/Q8 answers, S12/S18/check-in rows), milestones.md (M4 lines)
+- **Gaps:** none yet (GAP-008 will widen to S09/S10 when built)
+- **Next / open threads:** the user answers D5–D9 and approves the plan, then build S09 → S10 → S13 → S12.
+
 ## 2026-09-22 — Site footer ("poster sign-off")
 
 - **Done:** `SiteFooter` added (user request; the user picked the "poster sign-off" direction). It's shown on the tabs layout, the detail layout (S05) and `/welcome`, and not in checkout (a focused flow). Verified:

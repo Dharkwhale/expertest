@@ -361,6 +361,78 @@ export const momentsSummary = {
   memoryReady: true,
 };
 
+// ex17 wallet options (M4 plan §2). Display only: no wallet SDK, no signing, no RPC.
+// The brand logos in ex17 are drawn as monogram tiles in palette tokens, not copied.
+export const wallets = [
+  { id: "metamask", name: "MetaMask", detail: "Ethereum · Polygon · Base", badge: "Popular", tone: "primary" },
+  { id: "walletconnect", name: "WalletConnect", detail: "Scan QR or open mobile app", tone: "secondary" },
+  { id: "coinbase", name: "Coinbase Wallet", detail: "Smart wallet & passkeys ready", tone: "secondary" },
+  { id: "rainbow", name: "Rainbow", detail: "Optimized for mobile iOS", tone: "tertiary" },
+] as const satisfies readonly { id: string; name: string; detail: string; badge?: string; tone: Tone }[];
+export type Wallet = (typeof wallets)[number];
+
+// ex11 connected wallet: a fixed mock address. There is no address input anywhere.
+export const mockWallet = { address: "0x7A4b…92C4", defaultLabel: "Personal Vault" };
+
+// ex17 lists these networks; Q8 (2026-09-22): Base is the default, and there's no gas line.
+export const USDC_NETWORKS = ["Base", "Ethereum", "Polygon"] as const;
+export type UsdcNetwork = (typeof USDC_NETWORKS)[number];
+
+// ex5 Live Experience. The mock world is frozen at 8:42 PM on Apr 12 (ex5's clock).
+// "North Pavilion" → Resonance Pavilion: the canonical venue has no North Pavilion (flow.md §5).
+// Space links go to M5/M6 screens, which 404 until built (M4 decision D8 a).
+export const liveNow = {
+  eventId: "neon-solstice",
+  clock: "8:42 PM",
+  inRoom: 1200,
+  spaces: [
+    {
+      id: "main-hall",
+      title: "Main Hall",
+      status: "Light Installation · Happening now",
+      image: unsplash("1531058020387-3be344556be6"),
+      href: "/live/prompts/light",
+    },
+    {
+      id: "resonance-pavilion",
+      title: "Resonance Pavilion",
+      status: "New resonance point discovered",
+      image: unsplash("1601777225811-1ee43af2b881"),
+    },
+    {
+      id: "squad",
+      title: "Squad",
+      status: `${squad.name} · ${squad.memberCount} people`,
+      image: unsplash("1545128485-c400e7702796"),
+      href: "/live/squad",
+    },
+  ] satisfies { id: string; title: string; status: string; image: string; href?: string }[],
+  noticing: { options: ["Something", "Someone", "Somewhere"], href: "/live/prompts/blue" },
+  // ex5 shows icons only; the names give each reaction an accessible label
+  // (Electric and Calm reuse ex16's energy scale).
+  quickOne: {
+    question: "What does this sound like?",
+    responses: 312,
+    reactions: [
+      { id: "flowing", label: "Flowing", icon: "wave", tone: "tertiary" },
+      { id: "electric", label: "Electric", icon: "bolt", tone: "primary" },
+      { id: "calm", label: "Calm", icon: "moon", tone: "secondary" },
+      { id: "fiery", label: "Fiery", icon: "flame", tone: "neutral" },
+    ],
+  },
+} as const;
+
+// ex23 pre-event notification, shown as an in-app card on Home (Q4 a, D5 a). "Starts in 30
+// minutes" → "is happening now": Neon Solstice is live everywhere else in the app.
+export const liveNotice = {
+  eventId: "neon-solstice",
+  channel: "Nocturnal sync",
+  title: "Your evening has plans.",
+  body: "Neon Solstice is happening now.",
+  roomTag: "Sol live",
+  people: "Your people are looking for you",
+};
+
 export function getEvent(id: string): ExperienceEvent | undefined {
   return events.find((event) => event.id === id);
 }
