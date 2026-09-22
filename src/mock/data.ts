@@ -358,7 +358,47 @@ export const momentsSummary = {
     "Saved 2 moments",
   ],
   energyScale: ["Curious", "Electric", "Calm"],
+  // ex16 "Your energy": 27 bar heights (0–1) read off the design, peaking mid-night ("Electric")
+  energy: [0.15, 0.25, 0.4, 0.3, 0.55, 0.5, 0.8, 0.4, 0.55, 0.85, 0.95, 0.6, 1, 0.7, 0.9, 0.55, 0.8, 0.6, 0.5, 0.55, 0.45, 0.35, 0.45, 0.3, 0.4, 0.2, 0.15],
   memoryReady: true,
+  // ex16 filter chips. "Experiences" is pre-selected as in ex16. "Saved" has no saved-moment
+  // data or design, so it's unavailable; "Generative" shows the memory card.
+  filters: ["All", "Experiences", "Saved", "Generative"],
+  // Q1 (2026-09-22): the memory reveal is built from existing parts only
+  memoryTitle: "Your memory is ready.",
+};
+
+// ex18 Your Constellation (S22). Node positions are read off the design (0–100 grid). Off-palette
+// gradients map to tokens: magenta/violet → tertiary, teal/blue → secondary, orange/amber →
+// primary. `@stellar_01` is kept although it's also the user's handle (Q6).
+export const constellation = {
+  title: "Your Constellation",
+  intro: "The people, places and experiences that shape your world.",
+  nodes: [
+    { id: "art", label: "Art", x: 22, y: 12, tone: "tertiary" },
+    { id: "music", label: "Music", x: 52, y: 12, tone: "secondary" },
+    { id: "installation", label: "Installation", x: 16, y: 48, tone: "primary" },
+    { id: "conversation", label: "Conversation", x: 70, y: 52, tone: "secondary" },
+    { id: "food", label: "Food", x: 26, y: 86, tone: "primary" },
+    { id: "nightlife", label: "Nightlife", x: 58, y: 86, tone: "tertiary" },
+  ],
+  edges: [
+    ["art", "music"], ["art", "installation"], ["music", "conversation"], ["installation", "food"],
+    ["food", "nightlife"], ["nightlife", "conversation"],
+  ],
+  people: [
+    { handle: "@aura_pilot", tone: "tertiary" },
+    { handle: "@marcus_flow", tone: "secondary" },
+    { handle: "@elara_vibe", tone: "primary" },
+    { handle: "@stellar_01", tone: "secondary" },
+    { handle: "@nova_seeker", tone: "primary" },
+  ],
+} as const satisfies {
+  title: string;
+  intro: string;
+  nodes: readonly { id: string; label: string; x: number; y: number; tone: Tone }[];
+  edges: readonly (readonly [string, string])[];
+  people: readonly { handle: string; tone: Tone }[];
 };
 
 // ex17 wallet options (M4 plan §2). Display only: no wallet SDK, no signing, no RPC.

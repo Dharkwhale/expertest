@@ -30,7 +30,7 @@ still need loading / error / empty / success states, driven by that mock layer.
 | `src/app/globals.css` | **all design tokens** (`@theme`), `label-caps` and `bg-splash` utilities | Tailwind v4: there's no `tailwind.config.js`; default palette cleared |
 | `src/app/page.tsx` | S01 Splash route `/` | outside `(tabs)`: no nav |
 | `src/app/(tabs)/layout.tsx` | app shell: TopNav (md+), BottomTabBar (mobile), page container | wraps every screen that shows the tab bar |
-| `src/app/(tabs)/{home,explore,moments,you}/page.tsx` | 4 of the 5 tab routes | home + explore built (M2); moments, you are placeholders until M7. Home also shows the S12 notification card (M4) |
+| `src/app/(tabs)/{home,explore,moments,you}/page.tsx`, `(tabs)/moments/[eventId]/page.tsx` | 4 of the 5 tab routes + the memory reveal | home + explore (M2); Home shows the S12 card (M4); S21 Moments, S22 You and the memory reveal `/moments/:eventId` (M7, Q1) |
 | `src/app/(live)/layout.tsx`, `(live)/live/page.tsx`, `(live)/live/squad/page.tsx` | S13 Live Experience `/live` (+ S18 card on top), S19 Squad Hub `/live/squad` | same nav as `(tabs)` but **no site footer** and a centred `max-w-md` column (§6.7) |
 | `src/app/(prompt)/layout.tsx`, `(prompt)/live/{pocket,prompts/light,prompts/blue,prompts/blue/capture,pulse,leaderboard}` | S14–S17 + S20 full-screen live screens | no nav at all; each screen has its own back/✕ (`live/PromptNav`) to `/live`; centred `max-w-md` on desktop (§6.7) |
 | `src/app/(checkout)/events/[eventId]/checkout/{wallet,crypto}/page.tsx` | S09 Connect Wallet, S10 Confirm USDC | M4 USDC path; same order-in-URL gate as the card path |
@@ -40,7 +40,9 @@ still need loading / error / empty / success states, driven by that mock layer.
 | `src/components/{events,explore,lander,event-details}/` | M2 screen pieces: event cards, Explore feed, Lander worlds, Details aside/story | shared cards live in `events/` |
 | `src/components/nav/` | `nav-items.ts` (single tab list), `BottomTabBar`, `TopNav` | both navs render from the one list |
 | `src/components/ui/` | shared primitives: Button/ButtonLink, IconButton, Chip, LiveBadge, Avatar, AvatarStack, SectionLabel, Modal | extract new shared UI here on first use |
-| `src/components/` | screen-level pieces: `Splash`, `Wordmark`, `PlaceholderScreen`, `icons.tsx` | |
+| `src/components/moments/` | M7: `Timeline`, `EnergyBars`, `MemoryArtwork` (SVG art in tokens), `MomentsFeed` (filter chips) | |
+| `src/components/you/` | M7: `ConstellationGraph` (static SVG) | |
+| `src/components/` | screen-level pieces: `Splash`, `Wordmark`, `icons.tsx` | `PlaceholderScreen` deleted in M7 once every tab was real |
 | `src/mock/data.ts` | **the only data source**: user, events, tiers, squad, moments | later milestones extend this file |
 | `src/lib/` | `unsplash.ts` (image URL builder + allowed query), `cx.ts` | `next.config.ts` imports `UNSPLASH_SEARCH` |
 
@@ -80,6 +82,8 @@ Append-only. Supersede with a new row; never delete.
 | 2026-09-21 | `(detail)` route group: top nav on md+, no tab bar, screen owns its bottom CTA | flow.md hides the tab bar on S05; desktop still needs a way out of a deep page | Putting details in `(tabs)` and hiding the bar per page |
 | 2026-09-21 | Data states are per-section, reviewable via `?state=loading\|error\|empty` (`lib/view-state.ts`, allow-listed) | Mock data is synchronous, so non-ready states are otherwise unreachable for review (user's pick, M2). Cost: those 4 routes render dynamically (GAP-008) | Route-level `loading.tsx`/`error.tsx`; an artificial delay |
 | 2026-09-21 | Back button uses an in-app route counter (`nav/NavigationTracker.tsx`), not `history.length` | `history.length` counts pre-app pages, so Back on a deep link left the site (reproduced in S05 verification) | `history.length > 1`; `document.referrer` |
+| 2026-09-22 | The memory reveal (no design) is assembled from existing parts: §6.8 layout, `MemoryArtwork` = ex19/ex16's wave-and-dots motif as token-coloured SVG, info = ex16 data; Share/Download unavailable | User's pick Q1: complete the journey without inventing copy, data or features | Waiting for a design; a raster placeholder image |
+| 2026-09-22 | ex19 Brand / Message not built | User's pick Q5: the site footer already carries its message; cream theme + brush script would need new tokens and a third font | An `/about` page |
 | 2026-09-22 | `NotificationCard` is one shell for every in-app notification (S12, S18): per-card `storageKey` for session dismissal, content passed as children | Don't add a second pattern for a solved problem; ex22 and ex23 share the card chrome | Two separate card components |
 | 2026-09-22 | `(prompt)` route group for S14–S17 (URLs under `/live/…`, next to `(live)/live`) | flow.md hides all nav on Pocket Mode and the prompts; a separate group keeps `/live` itself in the tab shell | Hiding nav per page inside `(live)` |
 | 2026-09-22 | Capture is a native `<input type=file accept=image/* capture>`; the photo is shown from a local `blob:` URL (revoked on replace/unmount), never uploaded; non-images refused | V1 is mock-only (no backend), and the security bar says treat input as hostile; a blob URL can't carry script into the page | Uploading to a stub; reading the file as a data URL into state |
