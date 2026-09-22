@@ -30,7 +30,7 @@
   - The mobile bottom padding that cleared fixed bars moved from the pages and layouts into the footer's `clearance` prop (`tabbar` | `cta` | `none`). Any new layout with a fixed bottom bar must pick one.
 - **Docs updated:** frontend-conventions.md (`text-wordmark` token)
 - **Gaps:** none
-- **Next / open threads:** the footer branch is stacked on the M3 commit (M3 PR not merged yet), so rebase it onto `main` after M3 merges. M4 as below.
+- **Next / open threads:** the user merged M3 (PR #2, `e837d52`), so the footer branch is one commit ahead of `main` and needs no rebase. The footer PR is waiting to be opened and merged by the user. M4 as below.
 
 ## 2026-09-21 — M3 Buy (card path) built (awaiting user checkpoint)
 
