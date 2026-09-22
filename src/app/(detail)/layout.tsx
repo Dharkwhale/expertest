@@ -1,3 +1,4 @@
+import { SiteFooter } from "@/components/nav/SiteFooter";
 import { TopNav } from "@/components/nav/TopNav";
 
 // Detail screens (S05 Event Details). flow.md §1: no bottom tab bar here; the screen's
@@ -8,6 +9,8 @@ export default function DetailLayout({ children }: Readonly<{ children: React.Re
     <>
       <TopNav />
       {children}
+      {/* Clears S05's fixed "Join experience" bar on mobile */}
+      <SiteFooter clearance="cta" />
     </>
   );
 }

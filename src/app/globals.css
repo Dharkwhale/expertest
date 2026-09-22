@@ -44,6 +44,9 @@
   --text-display--line-height: 1;
   --text-title: clamp(1.625rem, 1.3rem + 1.6vw, 2.5rem);
   --text-title--line-height: 1.05;
+  /* Footer sign-off: "EXPER" in Anton sized to span the content width (~2.5em wide) */
+  --text-wordmark: clamp(5rem, 36vw, 27rem);
+  --text-wordmark--line-height: 0.8;
   --text-label: 0.6875rem;
   --text-label--line-height: 1rem;
   --text-label--letter-spacing: 0.14em;

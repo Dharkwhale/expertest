@@ -30,7 +30,7 @@ export default async function EventDetailsPage({ params, searchParams }: PagePro
   const retryHref = `/events/${event.id}`;
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 pb-32 md:px-8 md:pt-8 lg:pb-16">
+    <main className="mx-auto w-full max-w-6xl px-4 md:px-8 md:pt-8">
       {/* Hero: full-bleed on mobile, contained + rounded at 420px from md (§6.4) */}
       <section
         aria-labelledby="event-title"
