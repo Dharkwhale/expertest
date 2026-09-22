@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# impeccable design-hook cache (config.json is shared and committed)
+/.impeccable/hook.cache.json
