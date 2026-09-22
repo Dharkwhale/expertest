@@ -17,8 +17,8 @@ export const metadata: Metadata = { title: "Live" };
 
 // S13 Live Experience, the event lobby (ex5). In from the tab bar, S11 "Enter Hub" and the
 // S12 card on Home. Fixes: "North Pavilion" → Resonance Pavilion (canonical venue); ✕ →
-// Pocket Mode (flow.md §6); headline in Anton (Q10). Links to S14/S15/S16/S19 404 until
-// M5/M6 build them (decision D8 a).
+// Pocket Mode (flow.md §6); headline in Anton (Q10). Quick One reactions open S17 (Q7). The
+// Squad row's S19 404s until M6 (decision D8 a).
 export default async function LivePage({ searchParams }: PageProps<"/live">) {
   const state = readViewState(await searchParams);
   const event = state === "empty" ? undefined : getEvent(liveNow.eventId);
@@ -110,6 +110,7 @@ export default async function LivePage({ searchParams }: PageProps<"/live">) {
         question={liveNow.quickOne.question}
         reactions={liveNow.quickOne.reactions}
         responses={liveNow.quickOne.responses}
+        href={liveNow.quickOne.href}
       />
     </div>
   );

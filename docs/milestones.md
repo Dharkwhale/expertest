@@ -63,10 +63,10 @@ Every data-driven view also gets loading / error / empty states, driven by the m
 
 ## M5 — Participate: prompts
 **Screens**
-- [ ] S14 Pocket Mode (ex21): `/live/pocket`
-- [ ] S15 Capture a Moment of Light (ex8): `/live/prompts/light`
-- [ ] S16 Find Something Blue (ex24): `/live/prompts/blue`
-- [ ] S17 How Did That Feel? (ex25): `/live/pulse` (pending Q7)
+- [x] S14 Pocket Mode (ex21): `/live/pocket`
+- [x] S15 Capture a Moment of Light (ex8): `/live/prompts/light`
+- [x] S16 Find Something Blue (ex24): `/live/prompts/blue` (+ capture step `/live/prompts/blue/capture`)
+- [x] S17 How Did That Feel? (ex25): `/live/pulse` (Q7: opened by any S13 Quick One reaction)
 
 **Introduces:** `PromptLayout` (phone-first, centered `max-w-md` on desktop), `CaptureButton` (file input, mock only, no upload), `CountdownRing`
 
@@ -76,7 +76,7 @@ Every data-driven view also gets loading / error / empty states, driven by the m
 
 ## M6 — Participate: squads
 **Screens**
-- [ ] S18 Squad notification (ex22): pending Q4
+- [ ] S18 Squad notification (ex22): in-app card (Q4 a)
 - [ ] S19 Squad Hub (ex26): `/live/squad`
 - [ ] S20 Event Leaderboard (ex27): `/live/leaderboard`
 

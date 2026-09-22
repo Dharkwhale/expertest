@@ -380,7 +380,7 @@ export type UsdcNetwork = (typeof USDC_NETWORKS)[number];
 
 // ex5 Live Experience. The mock world is frozen at 8:42 PM on Apr 12 (ex5's clock).
 // "North Pavilion" → Resonance Pavilion: the canonical venue has no North Pavilion (flow.md §5).
-// Space links go to M5/M6 screens, which 404 until built (M4 decision D8 a).
+// Space links: Main Hall → S15 (M5); Squad → S19, which 404s until M6 (M4 decision D8 a).
 export const liveNow = {
   eventId: "neon-solstice",
   clock: "8:42 PM",
@@ -413,6 +413,7 @@ export const liveNow = {
   quickOne: {
     question: "What does this sound like?",
     responses: 312,
+    href: "/live/pulse", // Q7: every reaction opens S17
     reactions: [
       { id: "flowing", label: "Flowing", icon: "wave", tone: "tertiary" },
       { id: "electric", label: "Electric", icon: "bolt", tone: "primary" },
@@ -420,6 +421,68 @@ export const liveNow = {
       { id: "fiery", label: "Fiery", icon: "flame", tone: "neutral" },
     ],
   },
+} as const;
+
+// ex21 Pocket Mode (S14). "Main Hall & Resonance" → the canonical venue. The duration is a
+// frozen mock value, like the rest of the 8:42 PM world.
+export const pocketMode = {
+  audioSync: "Live audio sync",
+  status: "Pocket mode active",
+  statusDetail: "Display dimmed · Sensory radar active",
+  title: ["Go on.", "Forget about us."],
+  body: "We'll keep watch.",
+  activeDuration: "42:19",
+  radar: "Sensory radar active",
+  autoCapture: "Moments auto-capturing",
+  hapticLabel: "Haptic cues only",
+  note: "Exper will tap you when something changes.",
+};
+
+// ex8 (S15) and ex24 (S16) prompts. The handwritten asides render in Space Grotesk italic
+// (Q10), as M3 did with ex9's. Images reuse the ones already in this file.
+export const prompts = {
+  light: {
+    eyebrow: "Play",
+    title: "Capture a moment of light",
+    body: "Snap something. Any light, texture, movement, or moment that catches your eye.",
+    image: unsplash("1768054485751-bab2eda850b8"),
+    shared: 486,
+    recent: [
+      unsplash("1545128485-c400e7702796"),
+      unsplash("1601777225811-1ee43af2b881"),
+      unsplash("1768054485751-bab2eda850b8"),
+      unsplash("1531058020387-3be344556be6"),
+    ],
+    aside: "the room is alive",
+  },
+  blue: {
+    number: "Prompt · 02",
+    mode: "Observe",
+    chamber: "Live chamber",
+    aside: "somewhere in the room is a quiet hue",
+    title: "Find something",
+    highlight: "blue.",
+    body: "You have one minute. Don't overthink it.",
+    hint: "A sneaker, an optic cable, someone's coat",
+    seconds: 60,
+    // the capture step's header photo (S15 layout): the teal-beams shot already used by Sound/Scape
+    image: unsplash("1601777225811-1ee43af2b881"),
+  },
+};
+
+// ex25 (S17). "Don Jazzy" → the ex10 host (answered 2026-09-22): the only act on before
+// 8:42 PM. Off-palette icon colours map to tokens (pink / salmon / navy → secondary /
+// neutral-50 / neutral-800).
+export const pulse = {
+  performerLine: "just finished performing…",
+  question: "How did that feel?",
+  feelings: [
+    { id: "electric", label: "Electric", icon: "bolt", tone: "primary" },
+    { id: "mind-blown", label: "Mind blown", icon: "burst", tone: "tertiary" },
+    { id: "deep", label: "Deep", icon: "drop", tone: "secondary" },
+    { id: "chaotic", label: "Chaotic", icon: "arrows", tone: "neutral" },
+    { id: "transcendental", label: "Transcendental", icon: "infinity", tone: "neutral" },
+  ],
 } as const;
 
 // ex23 pre-event notification, shown as an in-app card on Home (Q4 a, D5 a). "Starts in 30

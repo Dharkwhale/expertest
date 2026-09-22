@@ -17,6 +17,27 @@
 - **Next / open threads:** <what a fresh session should pick up>
 -->
 
+## 2026-09-22 — M5 Participate: prompts built (awaiting user checkpoint)
+
+- **Done:** S14 Pocket Mode, S15 Capture a Moment of Light, S16 Find Something Blue (+ its capture step), S17 How Did That Feel?. S13's Quick One reactions now open S17. Verified:
+  - tsc 0, eslint 0, 52 tests;
+  - CDP shots at 375/768/1280 × 10 screen/state combos, none with horizontal overflow;
+  - a 23-check scripted walk: every S13 entry into each prompt and back, a real file pick (a non-image refused; an image shown first from a blob: URL, count 486 → 487), the S16 timer ticking, and S14 Return / End experience;
+  - keyboard probes on S13–S17.
+- **Answered:**
+  - Q7: any S13 reaction → S17, and a feeling or ✕ → S13.
+  - ex25 "Don Jazzy" → @aura_pilot.
+  - S15 capture stays on S15 with your photo first.
+- **Design fixes (M5):**
+  - ex21: zone → canonical venue; mono labels → label-caps; "Haptic cues only" unavailable.
+  - ex8: tab bar dropped (full-screen prompt); green → primary; the script aside → Space Grotesk italic.
+  - ex24: the "Live chamber" pill moved under the header (4 pills + ✕ don't fit at 375px); timer stops at 00:00.
+  - ex25: ✕ added; grey/pink/salmon/navy → neutral-800/secondary/neutral-50; all headlines Anton.
+- **Structure:** new `(prompt)` route group; `ReactionPicker` became links (no local state).
+- **Docs updated:** flow.md (Q7 + two answers, S15/S17 rows), milestones.md (M5 ticked), architecture.md (2 decisions + map), gaps.md (GAP-008 widened), frontend-conventions.md (M5 patterns)
+- **Gaps:** GAP-008 widened. None opened.
+- **Next / open threads:** the user reviews the M5 PR and merges. M6 = Participate: squads (S18 squad notification as an in-app card per Q4 a, S19 Squad Hub, S20 Leaderboard). The Q9 squad half (hide Join/Create when already in a squad) is still open.
+
 ## 2026-09-22 — M4 Buy (USDC path) + Attend built (awaiting user checkpoint)
 
 - **Done:** S09 Connect Wallet, S10 Confirm USDC, S13 Live Experience and the S12 notification card on Home, per `docs/plans/m4-usdc-attend.md` (D5–D9 all option a). Verified:
