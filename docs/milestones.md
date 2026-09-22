@@ -88,10 +88,10 @@ Every data-driven view also gets loading / error / empty states, driven by the m
 
 ## M7 — Generate & Remember
 **Screens**
-- [ ] S21 Moments (ex16): `/moments`
-- [ ] S22 Your Constellation (ex18): `/you`
-- [ ] Memory / artwork reveal: **not designed** (Q1), built only if approved
-- [ ] S23 Brand / Message (ex19): pending Q5
+- [x] S21 Moments (ex16): `/moments`
+- [x] S22 Your Constellation (ex18): `/you`
+- [x] Memory / artwork reveal: **not designed**; built from existing parts at `/moments/neon-solstice` (Q1, approved 2026-09-22)
+- ~~S23 Brand / Message (ex19)~~: skipped (Q5, 2026-09-22); its message is in the site footer
 
 **Introduces:** `Timeline`, `EnergyBars`, `ConstellationGraph` (static SVG)
 

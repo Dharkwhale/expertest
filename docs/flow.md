@@ -72,14 +72,14 @@ Route params use `:eventId` (demo event: `neon-solstice`).
 ### Generate
 | ID | Screen | File(s) | Route | In from | Out to |
 |---|---|---|---|---|---|
-| — | **Memory / artwork reveal** | — | — | S21 "Your memory is ready" | ⚠ **missing** (Q1) |
+| — | Memory / artwork reveal (no design; built from existing parts, Q1) | ex16 + ex19 | `/moments/:eventId` | S21 "Your memory is ready", S21 experience card | back → S21 |
 
 ### Remember
 | ID | Screen | File(s) | Route | In from | Out to |
 |---|---|---|---|---|---|
 | S21 | Moments | **ex16** (ex12 = duplicate) | `/moments` | tab bar, S11, S14 | "Your memory is ready" → ⚠ missing Generate screen · experience card → same |
 | S22 | Your Constellation ("You" tab) | ex18 | `/you` | tab bar, S03 avatar | people rows → ⚠ no profile screens (static in V1) |
-| S23 | Brand / Message | ex19 | ⚠ decision needed (Q5) | — | none (dead end) |
+| S23 | Brand / Message | ex19 | skipped (Q5); its line and © live in the site footer | — | — |
 
 ### Tab bar (canonical)
 **Home · Explore · Live · Moments · You** (from ex3, ex4, ex7, ex8, ex12, ex16, ex18).
@@ -160,6 +160,7 @@ The exports are about 190–300px wide. Small text on ex6, ex9, ex10, ex15 and e
 ## Open questions (need answers before or during the milestones noted)
 
 - **Q1 (M7):** Should I build the Generate "memory reveal" screen from the CLAUDE.md §6.8 pattern (artwork left, info and share/download right)? Or will you supply a design?
+  **Answered 2026-09-22:** build it from existing parts only, at `/moments/:eventId`: §6.8 layout, artwork = ex19's wave-and-dots art card rebuilt in tokens, info = ex16's tag / journey / energy. Share and Download are shown but unavailable (no feature). No new copy or data.
 - **Q2 (M4):** Check-in: add a screen, or reuse the S11 pass (barcode) as the gate pass?
   **Answered 2026-09-22:** (a) reuse the S11 pass. Its barcode is the gate pass; no check-in screen is built.
 - **Q3 (M2):** Lander (ex6): keep it as the first-visit landing at `/welcome` with its bottom nav removed? Or drop it?
@@ -167,6 +168,7 @@ The exports are about 190–300px wide. Small text on ex6, ex9, ex10, ex15 and e
 - **Q4 (M4/M6):** Lock-screen notifications (ex22, ex23) can't be real OS lock screens on the web. Options: (a) build the notification card as an in-app banner, (b) standalone demo routes that mimic the lock screen, (c) skip.
   **Answered 2026-09-22:** (a) in-app banner, for ex23 (M4) and ex22 (M6). No fake lock screen.
 - **Q5 (M7):** Brand / Message (ex19, light theme): skip, or build as an `/about` page?
+  **Answered 2026-09-22:** skip. The site footer already carries ex19's line and ©; the cream theme and brush script would need new tokens and a third font.
 - **Q6 (M1):** Confirm the canonical mock data: user **Tope Banjo**, whether to keep handle `@stellar_01` (it collides with ex18), leaderboard squad names, and which lineup act replaces "Don Jazzy".
   **Answered 2026-09-21:** keep the mock data as it is. Use the canonical values in §5 unchanged (Tope Banjo `@stellar_01`, The Neon Nomads, Neon Solstice). Leaderboard squad names and the lineup act stay as the designs show them.
 - **Q7 (M5):** Entry to ex25: tapping a "Quick one" reaction on S13 opens the full-screen version. OK?

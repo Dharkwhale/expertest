@@ -105,6 +105,12 @@ visible in any design and was chosen to complete the scale; re-check derived val
 - **Progress / scores:** `ui/ProgressBar` (`role="progressbar"`, 0–100). Lime for the leader or primary metric, `tertiary` for squad synergy, `neutral` for the rest.
 - **Ranked lists:** `<ol>` with an `sr-only` "Rank n" prefix; the number is visual only.
 
+### Patterns added in M7 (reuse them)
+
+- **Generated art:** `MemoryArtwork` (SVG, token fills, `variant="poster" | "card"`). Give it `label` when it's the subject (the reveal); leave it decorative inside cards.
+- **Static data-viz:** `EnergyBars` and `ConstellationGraph` are decorative drawings with a text alternative (figcaption / scale labels). SVG geometry, including `fontSize`, uses SVG attributes, not Tailwind arbitrary values.
+- **Filter chips with no data behind one option** ("Saved"): render it as an `UnavailableButton` styled like a chip, not a chip that leads to a fake empty list.
+
 ## Design → code fidelity checklist
 
 1. **Inventory before coding:** layout, spacing, type, colours, radii, states shown.

@@ -17,6 +17,23 @@
 - **Next / open threads:** <what a fresh session should pick up>
 -->
 
+## 2026-09-22 — M7 Generate & Remember built (awaiting user checkpoint)
+
+- **Done:** S21 Moments, the memory reveal `/moments/neon-solstice` (Q1), S22 Your Constellation. **The full journey Discover → Buy → Attend → Participate → Generate → Remember is now clickable end to end.** Verified:
+  - tsc 0, eslint 0, 52 tests;
+  - CDP shots at 375/768/1280 × 6 combos, none with horizontal overflow;
+  - a 14-check walk: S14 End experience → S21, the filters, Saved unavailable, "Your memory is ready" and the experience card → reveal → back, Home avatar → S22.
+- **Answered:**
+  - Q1: build the reveal from existing parts only.
+  - Q5: skip ex19 (the footer carries it).
+- **Design fixes (M7):**
+  - ex16: tag → secondary token; the tab icon mismatch resolved by the canonical bar; "Saved" unavailable (no data).
+  - ex18: node gradients → tokens; the people list (clipped in ex18) moves below the graph on mobile and beside it on lg.
+- **Cleanup:** `PlaceholderScreen` deleted (no uses left).
+- **Docs updated:** flow.md (Q1, Q5, reveal + S23 rows), milestones.md (M7 ticked, S23 struck), architecture.md (2 decisions + map), gaps.md (GAP-008), frontend-conventions.md (M7 patterns)
+- **Gaps:** GAP-008 widened. None opened.
+- **Next / open threads:** the user reviews the M7 PR and merges. Every milestone M1–M7 is built. Candidates to discuss: GAP-008 (turn off `?state=` in production before a public link), the remaining gaps, and the live Vercel check.
+
 ## 2026-09-22 — M6 Participate: squads built (awaiting user checkpoint)
 
 - **Done:** S18 squad notification (a card at the top of `/live`), S19 Squad Hub `/live/squad`, S20 Leaderboard `/live/leaderboard`. S13's Squad row no longer 404s. Verified:
