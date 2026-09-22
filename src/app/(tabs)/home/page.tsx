@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { EventMeta } from "@/components/events/EventMeta";
 import { EventRowCard } from "@/components/events/EventRowCard";
-import { NotificationCard } from "@/components/live/NotificationCard";
+import { PreEventNotice } from "@/components/live/PreEventNotice";
 import { ArrowRightIcon, BellIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/Avatar";
 import { AvatarStack } from "@/components/ui/AvatarStack";
@@ -16,9 +16,9 @@ import { IconButton } from "@/components/ui/IconButton";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import { Skeleton, SkeletonGroup } from "@/components/ui/Skeleton";
 import { cx } from "@/lib/cx";
-import { formatCompact, formatCount } from "@/lib/format";
+import { formatCount } from "@/lib/format";
 import { readViewState } from "@/lib/view-state";
-import { attendeePreview, currentUser, getEvent, getEvents, home, liveNotice, liveNow, passTemplate } from "@/mock/data";
+import { attendeePreview, currentUser, getEvent, getEvents, home, liveNotice } from "@/mock/data";
 
 export const metadata: Metadata = { title: "Home" };
 
@@ -58,19 +58,7 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
         </div>
       </header>
 
-      {notice?.isLive && notice.venue && (
-        <NotificationCard
-          channel={liveNotice.channel}
-          passCode={passTemplate.credential}
-          title={liveNotice.title}
-          body={liveNotice.body}
-          roomTag={liveNotice.roomTag}
-          room={notice.venue}
-          people={liveNotice.people}
-          inRoom={formatCompact(liveNow.inRoom)}
-          href="/live"
-        />
-      )}
+      {notice?.isLive && notice.venue && <PreEventNotice room={notice.venue} />}
 
       <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
         <section aria-label="Happening now" className="lg:col-span-2">

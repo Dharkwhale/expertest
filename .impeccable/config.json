@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/app/(prompt)/live/leaderboard/page.tsx"
+        ],
+        "createdAt": "2026-09-22T17:05:22.031Z",
+        "reason": "Claude (design fidelity): designs/ex27.png draws a left accent bar on the Top Contributor card (Femisola); reproduced as designed"
+      }
+    ]
+  }
+}

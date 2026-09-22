@@ -65,7 +65,7 @@ Route params use `:eventId` (demo event: `neon-solstice`).
 | S15 | Capture a Moment of Light | ex8 | `/live/prompts/light` (+ `/live/prompts/blue/capture` for S16's blue prompt) | S13, S16 | back → S13 · capture → stays, your photo first in "Recent responses" (answered 2026-09-22) |
 | S16 | Find Something Blue | ex24 | `/live/prompts/blue` | S13 | "I found blue" → capture (S15 layout, blue prompt) · "I'd rather just wander" / ✕ → S13 |
 | S17 | How Did That Feel? | ex25 | `/live/pulse` | S13 Quick One reaction (Q7, answered) | choice → S13 · ✕ added → S13 |
-| S18 | Squad notification | ex22 | in-app banner (Q4 a) | system notification | "Join Them" → S19 |
+| S18 | Squad notification | ex22 | in-app card at the top of `/live` (Q4 a, answered 2026-09-22) | S13 | "Join Them" → S19 |
 | S19 | Squad Hub | ex26 | `/live/squad` | S13, S18 | back → S13 · "My rank within the squad" → S20 · View all → ⚠ no screen |
 | S20 | Event Leaderboard | ex27 | `/live/leaderboard` | S19 | back → S19 |
 
@@ -139,7 +139,7 @@ prompts (S15–S17), Pocket Mode, and Leaderboard.
 - **ex5 Live Experience ✕** has no stated destination. → Pocket Mode (S14), which is what "stepping away while staying in" means.
 - **ex24 "I found blue"** has no next screen. → capture layout (S15) with the blue prompt.
 - **ex8 capture** has no success state. Stay on S15 and put the photo first in its own "Recent responses" (S13 has no such section); no new UI. Answered 2026-09-22.
-- **ex26 Squad Hub** shows "Join a Squad" / "Create New Squad" to someone already in a squad. Hide them in the in-squad state (Q9).
+- **ex26 Squad Hub** shows "Join a Squad" / "Create New Squad" to someone already in a squad. Hidden in the in-squad state (Q9, answered 2026-09-22).
 - **ex19 Brand / Message** has no navigation in or out.
 - **ex20 "Enter Neon Solstice Hub"** skips check-in. Fine for the V1 demo, flagged under missing screen 2.
 - **ex14 "Wristband Sync & Spatial Memory" add-on** with a stepper appears on no other screen or tier (Q9).
@@ -175,6 +175,7 @@ The exports are about 190–300px wide. Small text on ex6, ex9, ex10, ex15 and e
   **Answered 2026-09-22:** yes to both. S10 has no gas line; the network dropdown stays (Ethereum · Polygon · Base) and defaults to Base.
 - **Q9 (M3/M6):** Remove the ex14 add-on stepper, and hide Join / Create Squad when the user is already in a squad?
   **Answered 2026-09-21 (add-on half):** remove the ex14 "Wristband Sync & Spatial Memory" add-on stepper "for now". The Join / Create Squad half stays open until M6.
+  **Answered 2026-09-22 (squad half):** (a) hide "Join a Squad" / "Create New Squad" while the user is in a squad. Same pass: ex26's purple primary button → lime like every other screen (purple/tertiary kept as an accent); S18 (ex22) shows as an in-app card at the top of `/live`.
 - **Q10 (M1):** Fonts: use the ex1 system (Anton / Space Grotesk / JetBrains Mono) everywhere?
   **Answered 2026-09-21:** use two fonts only. **Anton** for headlines, **Space Grotesk** for body *and* labels. JetBrains Mono is dropped; labels become Space Grotesk, uppercase, wide tracking.
 - **Q11 (M1):** Stack: the repo is empty. Proposed: **Vite + React + React Router + Tailwind**, since this is a mock-data SPA and doesn't need SSR. Or Next.js?

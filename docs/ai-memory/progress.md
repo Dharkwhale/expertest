@@ -17,6 +17,25 @@
 - **Next / open threads:** <what a fresh session should pick up>
 -->
 
+## 2026-09-22 — M6 Participate: squads built (awaiting user checkpoint)
+
+- **Done:** S18 squad notification (a card at the top of `/live`), S19 Squad Hub `/live/squad`, S20 Leaderboard `/live/leaderboard`. S13's Squad row no longer 404s. Verified:
+  - tsc 0, eslint 0, 52 tests;
+  - CDP shots at 375/768/1280 × 7 combos, none with horizontal overflow;
+  - a 21-check walk: /live → S18 Join them → S19 → rank → S20 → back → back, S13 Squad row → S19, S18 dismissal persists without touching S12, and the not-in-squad state. The one FAIL was a test text-match artefact (sr-only "Rank" + avatar initial); the order was right.
+- **Answered:**
+  - Q9 squad half (a): hide Join/Create while in a squad.
+  - ex26 purple primary → lime, with purple kept as an accent.
+  - S18 at the top of `/live`.
+- **Design fixes (M6):**
+  - ex22: SOL-SQUAD → The Neon Nomads; lock-screen chrome dropped; faces = ex26's four named members (ex22's EV/MF/AP/TP match no one); the mono line → Anton.
+  - ex26: the placeholder title → The Neon Nomads; my rank #3 → #4 (its top 3 has no Tope); the canonical tab bar; View all and ⓘ unavailable.
+  - ex27: the placeholder event → Neon Solstice; navy/periwinkle → neutral + lime; squad photos → tone tiles; squad names kept (Q6).
+- **Structure:** `NotificationCard` refactored into a shell (S12 moved to `PreEventNotice`, unchanged apart from the two-line header); `ui/ProgressBar` added.
+- **Docs updated:** flow.md (Q9 + 2 answers, S18 row), milestones.md (M6 ticked), architecture.md, gaps.md (GAP-008), frontend-conventions.md
+- **Gaps:** GAP-008 widened. None opened.
+- **Next / open threads:** the user reviews the M6 PR and merges. M7 = Generate & Remember: S21 Moments, S22 Your Constellation. Open: Q1 (the undesigned memory/artwork reveal, built only if approved) and Q5 (the ex19 brand page).
+
 ## 2026-09-22 — M5 Participate: prompts built (awaiting user checkpoint)
 
 - **Done:** S14 Pocket Mode, S15 Capture a Moment of Light, S16 Find Something Blue (+ its capture step), S17 How Did That Feel?. S13's Quick One reactions now open S17. Verified:
