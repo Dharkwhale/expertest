@@ -291,3 +291,47 @@ export function CheckCircleIcon(props: IconProps) {
     </Svg>
   );
 }
+
+export function CameraIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.2l1.5-2h5.6l1.5 2h2.2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z" />
+      <circle cx="12" cy="13" r="3.5" />
+    </Svg>
+  );
+}
+
+// ex25 feelings
+export function BurstIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m12 3 2 3.5 4-.5-.5 4L21 12l-3.5 2 .5 4-4-.5-2 3.5-2-3.5-4 .5.5-4L3 12l3.5-2-.5-4 4 .5z" />
+      <circle cx="12" cy="12" r="2.5" />
+    </Svg>
+  );
+}
+
+export function DropIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3.5c3 4 6 7.2 6 10.5a6 6 0 0 1-12 0c0-3.3 3-6.5 6-10.5z" />
+      <path d="M9 14.5a3 3 0 0 0 3 3" />
+    </Svg>
+  );
+}
+
+export function ArrowsInIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 14h7l-2.5 2.5M10 14l-2.5-2.5M21 10h-7l2.5-2.5M14 10l2.5 2.5" />
+    </Svg>
+  );
+}
+
+export function InfinityIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 12c-2-2.7-3.5-4-5.5-4a4 4 0 0 0 0 8c2 0 3.5-1.3 5.5-4zm0 0c2 2.7 3.5 4 5.5 4a4 4 0 0 0 0-8c-2 0-3.5 1.3-5.5 4z" />
+    </Svg>
+  );
+}

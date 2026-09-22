@@ -92,6 +92,13 @@ visible in any design and was chosen to complete the scale; re-check derived val
 - **Off-palette design colours** stay mapped to the nearest token: ex5 green "Live" dots → `primary`; ex5 orange flame → `neutral-50`.
 - **Dismissible notices:** `sessionStorage` read through `useSyncExternalStore` (server snapshot = visible). Wrap storage in try/catch.
 
+### Patterns added in M5 (reuse them)
+
+- **Full-screen live screens** go in `(prompt)`: `PromptNav` (back/✕ to `/live`) + a `max-w-md` main with `min-h-dvh` on mobile, `md:my-8 md:rounded-card` on desktop.
+- **Photo capture:** `CaptureScreen` (ex8 layout) + `CapturePrompt`. Native file input with `accept="image/*" capture`, a local `blob:` URL (revoke it), `<img>` only for blob URLs (next/image can't optimise them). Never upload in V1.
+- **Timers** (`CountdownRing`): count in text once per second, stop at zero, no ring animation unless a design shows one.
+- **Handwritten asides** (ex8, ex24): Space Grotesk italic, as M3's ex9 asides.
+
 ## Design → code fidelity checklist
 
 1. **Inventory before coding:** layout, spacing, type, colours, radii, states shown.

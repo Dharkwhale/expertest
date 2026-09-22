@@ -62,9 +62,9 @@ Route params use `:eventId` (demo event: `neon-solstice`).
 ### Participate
 | ID | Screen | File(s) | Route | In from | Out to |
 |---|---|---|---|---|---|
-| S15 | Capture a Moment of Light | ex8 | `/live/prompts/light` | S13, S16 | back → S13 · capture → S13 (response added to "Recent responses") |
+| S15 | Capture a Moment of Light | ex8 | `/live/prompts/light` (+ `/live/prompts/blue/capture` for S16's blue prompt) | S13, S16 | back → S13 · capture → stays, your photo first in "Recent responses" (answered 2026-09-22) |
 | S16 | Find Something Blue | ex24 | `/live/prompts/blue` | S13 | "I found blue" → capture (S15 layout, blue prompt) · "I'd rather just wander" / ✕ → S13 |
-| S17 | How Did That Feel? | ex25 | `/live/pulse` | S13 (Q7) | choice → S13 · ⚠ design has no exit, add ✕ → S13 |
+| S17 | How Did That Feel? | ex25 | `/live/pulse` | S13 Quick One reaction (Q7, answered) | choice → S13 · ✕ added → S13 |
 | S18 | Squad notification | ex22 | in-app banner (Q4 a) | system notification | "Join Them" → S19 |
 | S19 | Squad Hub | ex26 | `/live/squad` | S13, S18 | back → S13 · "My rank within the squad" → S20 · View all → ⚠ no screen |
 | S20 | Event Leaderboard | ex27 | `/live/leaderboard` | S19 | back → S19 |
@@ -138,7 +138,7 @@ prompts (S15–S17), Pocket Mode, and Leaderboard.
 - **ex25 How Did That Feel?** has no back or close. Add ✕ → S13, and return to S13 after a choice.
 - **ex5 Live Experience ✕** has no stated destination. → Pocket Mode (S14), which is what "stepping away while staying in" means.
 - **ex24 "I found blue"** has no next screen. → capture layout (S15) with the blue prompt.
-- **ex8 capture** has no success state. Return to S13 and add the photo to "Recent responses"; no new UI.
+- **ex8 capture** has no success state. Stay on S15 and put the photo first in its own "Recent responses" (S13 has no such section); no new UI. Answered 2026-09-22.
 - **ex26 Squad Hub** shows "Join a Squad" / "Create New Squad" to someone already in a squad. Hide them in the in-squad state (Q9).
 - **ex19 Brand / Message** has no navigation in or out.
 - **ex20 "Enter Neon Solstice Hub"** skips check-in. Fine for the V1 demo, flagged under missing screen 2.
@@ -170,6 +170,7 @@ The exports are about 190–300px wide. Small text on ex6, ex9, ex10, ex15 and e
 - **Q6 (M1):** Confirm the canonical mock data: user **Tope Banjo**, whether to keep handle `@stellar_01` (it collides with ex18), leaderboard squad names, and which lineup act replaces "Don Jazzy".
   **Answered 2026-09-21:** keep the mock data as it is. Use the canonical values in §5 unchanged (Tope Banjo `@stellar_01`, The Neon Nomads, Neon Solstice). Leaderboard squad names and the lineup act stay as the designs show them.
 - **Q7 (M5):** Entry to ex25: tapping a "Quick one" reaction on S13 opens the full-screen version. OK?
+  **Answered 2026-09-22:** yes. Tapping any S13 Quick One reaction opens S17 `/live/pulse`; picking a feeling or ✕ returns to S13. (ex25's five feelings don't match ex5's four icons, so nothing is pre-selected.) Also answered in the same pass: ex25's "Don Jazzy" → **@aura_pilot** (ex10 host, the only act on before 8:42 PM), and S15 capture **stays on S15** with your photo first in Recent responses (count 486 → 487; the photo never leaves the browser).
 - **Q8 (M4):** USDC: drop the gas line (zero gas) and default the network to Base?
   **Answered 2026-09-22:** yes to both. S10 has no gas line; the network dropdown stays (Ethereum · Polygon · Base) and defaults to Base.
 - **Q9 (M3/M6):** Remove the ex14 add-on stepper, and hide Join / Create Squad when the user is already in a squad?
