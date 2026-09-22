@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { LanderWorlds } from "@/components/lander/LanderWorlds";
 import { MarkWelcomed } from "@/components/lander/MarkWelcomed";
+import { SiteFooter } from "@/components/nav/SiteFooter";
 import { ArrowRightIcon, GlobeIcon, SearchIcon, StarIcon } from "@/components/icons";
 import { Wordmark } from "@/components/Wordmark";
 import { ButtonLink } from "@/components/ui/Button";
@@ -113,6 +114,7 @@ export default async function WelcomePage({ searchParams }: PageProps<"/welcome"
           </section>
         </div>
       </main>
+      <SiteFooter />
     </>
   );
 }

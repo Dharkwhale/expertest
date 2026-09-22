@@ -1,4 +1,5 @@
 import { BottomTabBar } from "@/components/nav/BottomTabBar";
+import { SiteFooter } from "@/components/nav/SiteFooter";
 import { TopNav } from "@/components/nav/TopNav";
 
 // App shell for every screen that shows the tab bar (flow.md §1: S03, S04, S13, S19,
@@ -7,10 +8,9 @@ export default function TabsLayout({ children }: Readonly<{ children: React.Reac
   return (
     <>
       <TopNav />
-      {/* pb clears the fixed bottom bar on mobile */}
-      <main className="mx-auto w-full max-w-6xl px-4 pt-6 pb-28 md:px-8 md:pt-10 md:pb-16">
-        {children}
-      </main>
+      <main className="mx-auto w-full max-w-6xl px-4 pt-6 md:px-8 md:pt-10">{children}</main>
+      {/* The footer now owns the space that clears the fixed bottom tab bar on mobile */}
+      <SiteFooter clearance="tabbar" />
       <BottomTabBar />
     </>
   );

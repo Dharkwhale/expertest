@@ -17,6 +17,21 @@
 - **Next / open threads:** <what a fresh session should pick up>
 -->
 
+## 2026-09-22 — Site footer ("poster sign-off")
+
+- **Done:** `SiteFooter` added (user request; the user picked the "poster sign-off" direction). It's shown on the tabs layout, the detail layout (S05) and `/welcome`, and not in checkout (a focused flow). Verified:
+  - tsc 0, eslint 0, 45 tests;
+  - headless CDP at 320/375/768/1280 on /welcome, /home, /explore and /events/neon-solstice: no horizontal overflow, the wordmark stays inside the gutters, and the last line clears the fixed bars (47px above the tab bar; 15px at 320 / 35px at 375 above S05's CTA bar).
+- **Files:** `src/components/nav/SiteFooter.tsx`, `src/app/(tabs)/layout.tsx`, `src/app/(detail)/layout.tsx`, `src/app/(detail)/events/[eventId]/page.tsx`, `src/app/welcome/page.tsx`, `src/mock/data.ts` (`brand`), `src/app/globals.css`
+- **Decisions:**
+  - No design has a footer, so all copy is reused from existing screens (the ex19 brand line and ©, the ex2 tagline, the ex6 "Connected constellation" cities, the ex14 legal link names). Nothing was invented.
+  - On phones the App column is dropped, because the bottom tab bar already carries those links.
+  - Terms and Refund links use `UnavailableButton`, since neither screen exists yet (flow.md §3).
+  - The mobile bottom padding that cleared fixed bars moved from the pages and layouts into the footer's `clearance` prop (`tabbar` | `cta` | `none`). Any new layout with a fixed bottom bar must pick one.
+- **Docs updated:** frontend-conventions.md (`text-wordmark` token)
+- **Gaps:** none
+- **Next / open threads:** the user merged M3 (PR #2, `e837d52`), so the footer branch is one commit ahead of `main` and needs no rebase. The footer PR is waiting to be opened and merged by the user. M4 as below.
+
 ## 2026-09-21 — M3 Buy (card path) built (awaiting user checkpoint)
 
 - **Done:** S06 Select Access, S07 Payment Method, S08 Review & Pay (card), S11 Purchase Confirmation / Pass, per `docs/plans/m3-buy-card.md`. Verified:

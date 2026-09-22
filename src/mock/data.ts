@@ -222,6 +222,14 @@ export const events: ExperienceEvent[] = [
   },
 ];
 
+// Site footer copy (user request 2026-09-22, "poster sign-off"). No design has a footer, so
+// every line is reused from one that exists: ex19 brand line + ©, ex2 tagline.
+export const brand = {
+  manifesto: "Turn attendance into data, data into participation, and participation into memory.",
+  tagline: "Discover. Participate. Generate. Remember.",
+  copyright: "© 2026 Exper. All rights reserved.",
+};
+
 // ex6 Lander. "Tonight, 22:00" in ex6 is corrected to the canonical 8:00 PM; the
 // "No tickets. No waiting lines." line is dropped (contradicts Buy). 2026-09-21.
 export const lander = {
