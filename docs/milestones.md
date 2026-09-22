@@ -37,10 +37,10 @@ Every data-driven view also gets loading / error / empty states, driven by the m
 
 ## M3 — Buy (card path)
 **Screens**
-- [ ] S06 Select Access (ex9): `/events/:eventId/access`
-- [ ] S07 Payment Method (ex13): `/events/:eventId/checkout`
-- [ ] S08 Review & Pay, card (ex14): `/events/:eventId/checkout/card`
-- [ ] S11 Purchase Confirmation / Pass (ex20): `/events/:eventId/pass`
+- [x] S06 Select Access (ex9): `/events/:eventId/access`
+- [x] S07 Payment Method (ex13): `/events/:eventId/checkout`
+- [x] S08 Review & Pay, card (ex14): `/events/:eventId/checkout/card`
+- [x] S11 Purchase Confirmation / Pass (ex20): `/events/:eventId/pass`
 
 **Introduces:** `TierCard`, `QtyStepper`, `RadioCard`, `OrderSummary`, checkout state (tier + qty carried through the flow), `PassCard`
 

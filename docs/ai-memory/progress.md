@@ -17,6 +17,49 @@
 - **Next / open threads:** <what a fresh session should pick up>
 -->
 
+## 2026-09-21 — M3 Buy (card path) built (awaiting user checkpoint)
+
+- **Done:** S06 Select Access, S07 Payment Method, S08 Review & Pay (card), S11 Purchase Confirmation / Pass, per `docs/plans/m3-buy-card.md`. Verified:
+  - 45 unit tests, tsc 0, eslint 0;
+  - `npm ci` + `next build` in an isolated copy (exit 0), leaving the user's dev server alone;
+  - CDP shots at 375/768/1280 for every screen × states (ready, mixed order, loading, error, invalid URL, not on sale, declined);
+  - Tab-order probes;
+  - a scripted click walk Details → S06 → S07 → S08 → Pay → S11 asserting ₦90,000 (1 General + 1 VIP) at every step.
+- **Design fixes (M3):**
+  - ex9: "Stage 05" dropped; venue canonical; default qty 2 → 1; "persona" → "person".
+  - ex14: add-on stepper removed (Q9); fee line removed (fees included); Tope Adebayo → Tope Banjo (+ ex14's email); North Pavilion → canonical.
+  - ex20: "VIP Immersion" → the purchased tier; "Zone A…" → tier tagline; the unreadable "1.2K squad" is left out; the "Pass minted" pill only shows when a pass exists.
+  - ex13: Card is the default method (ex13 pre-selects USDC).
+  - Script accents → Space Grotesk italic.
+  - Off-palette green/amber/pink → nearest tokens.
+- **Bugs found by verification and fixed:**
+  - Rapid stepper clicks read stale state (now a functional update + URL sync effect).
+  - The mobile S08 bar was 255px (terms moved into the flow below lg).
+- **Process incident:** the user's own `next dev` (:3000, same folder) was live while I ran `next build` at 18:28 (only my ports were checked). Their CSS was verified intact, the memory note was updated, and all M3 checks used their server read-only plus an isolated build copy.
+- **Docs updated:** milestones.md (S06/S07/S08/S11 ticked), architecture.md (3 decisions), gaps.md, plan status
+- **Gaps:** GAP-009 opened (pass from any valid URL, mock only). GAP-007 fixed (D4). GAP-001 now covers the checkout maths.
+- **Next / open threads:** the user reviews the M3 PR and merges. M4 = S09 Connect Wallet, S10 Confirm USDC (Q8: gas line + default network), S12 pre-event notification (Q4), S13 Live Experience. Q2 (check-in) is still open.
+
+## 2026-09-21 — M3 prep: Q9, Vitest, plan + decisions
+
+- **Done:**
+  - Branch `feat/m3-buy-card` created from the merged `main` (`c7c8da7`).
+  - Vitest 5.0.1 installed; 14 tests pass. `@types/node` aligned to ^24.
+  - `package-lock.json` regenerated once (npm bug cli#4828); diffed, direct deps unchanged.
+  - M3 plan written: `docs/plans/m3-buy-card.md`.
+- **Answered:**
+  - Q9 (add-on half): remove the ex14 "Wristband Sync & Spatial Memory" stepper "for now".
+  - Vitest approved (GAP-001 partially fixed).
+  - M3 improvised parts (all option a):
+    - D1: desktop = two columns + sticky summary/CTA.
+    - D2: order carried in URL query params (validated; prices recomputed from mock data).
+    - D3: Pay shows "Processing…" then the pass, plus a `?state=declined` review state.
+    - D4 (GAP-007): events without tiers show "Tickets for {event} aren't on sale yet" on Select Access.
+- **Correction to the entry below:** the user opened PR #1 and merged it themselves (merge `c7c8da7`). `gh` is installed but not logged in yet.
+- **Docs updated:** flow.md (Q9), gaps.md (GAP-001), architecture.md (Vitest, lockfile rows)
+- **Gaps:** GAP-001 partially fixed
+- **Next / open threads:** get the go-ahead on the plan, then build S06 → S07 → S08 → S11 in that order, writing `lib/order.ts` + tests first.
+
 ## 2026-09-21 — Git workflow set up: GitHub repo + per-milestone PRs
 
 - **Done:** Remote `origin` = github.com/Dharkwhale/expertest. `main` holds one empty base commit (`0b13c99`, the user's choice, so the first PR had a base). M1 + M2 are committed on `feat/m2-discover` with a PR into `main`. M1 was never committed separately, so it's in the same branch.

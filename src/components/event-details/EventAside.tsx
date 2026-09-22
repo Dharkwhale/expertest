@@ -5,6 +5,7 @@ import { cardSurface } from "@/components/ui/card";
 import { UnavailableButton } from "@/components/ui/UnavailableButton";
 import { cx } from "@/lib/cx";
 import { formatCount, formatNgn } from "@/lib/format";
+import { toUsdc } from "@/lib/order";
 import type { ExperienceEvent, Tier } from "@/mock/data";
 
 // ex10's facts card + the primary action. One element for both layouts (CLAUDE.md §6.3):
@@ -86,9 +87,7 @@ export function EventAside({
             <p className="label-caps text-neutral-400">From</p>
             <p className="flex flex-wrap items-baseline gap-x-2">
               <span className="font-display text-2xl tabular-nums">{formatNgn(fromTier.priceNgn)}</span>
-              {fromTier.priceUsdc && (
-                <span className="text-sm text-neutral-400">≈ {fromTier.priceUsdc.toFixed(2)} USDC</span>
-              )}
+              <span className="text-sm text-neutral-400">≈ {toUsdc(fromTier.priceNgn).toFixed(2)} USDC</span>
             </p>
           </div>
         )}
