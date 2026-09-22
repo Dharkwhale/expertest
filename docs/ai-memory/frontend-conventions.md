@@ -83,6 +83,15 @@ visible in any design and was chosen to complete the scale; re-check derived val
 - **Type scale:** Tailwind's default `text-sm`…`text-2xl` for card-level text; the `clamp()` tokens for screen and section titles.
 - **Hero images:** full-bleed on mobile, `md:h-105` (420px) + `rounded-card` from md. Use `preload` (Next 16 replaced `priority`) on the LCP image only.
 
+### Patterns added in M4 (reuse them)
+
+- **Checkout headers:** `CheckoutHeader` takes `close` for screens with back *and* ✕ (ex17). `StepIndicator` is the "● Step n of 3" pill on the USDC path.
+- **Pay step:** `PayButton method="card" | "usdc"`. Never build a second processing/declined button.
+- **Icon-only choices** (ex5 reactions): native radios drawn as tiles, with an `sr-only` name for each (`ReactionPicker`), like `RadioCard`.
+- **Brand logos** (wallets): monogram tiles in palette tokens, never copied logos.
+- **Off-palette design colours** stay mapped to the nearest token: ex5 green "Live" dots → `primary`; ex5 orange flame → `neutral-50`.
+- **Dismissible notices:** `sessionStorage` read through `useSyncExternalStore` (server snapshot = visible). Wrap storage in try/catch.
+
 ## Design → code fidelity checklist
 
 1. **Inventory before coding:** layout, spacing, type, colours, radii, states shown.

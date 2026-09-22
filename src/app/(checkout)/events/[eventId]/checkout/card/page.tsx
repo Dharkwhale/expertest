@@ -201,9 +201,10 @@ function ReviewPayContent({
           passes={totals.passes}
           action={
             <PayButton
+              method="card"
               amountLabel={formatNgn(totals.totalNgn)}
               successHref={checkoutRoutes.pass(event.id, quantities, "card")}
-              usdcHref={usdcHref}
+              altHref={usdcHref}
               simulateDecline={simulateDecline}
             />
           }

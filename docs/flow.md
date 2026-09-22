@@ -54,8 +54,8 @@ Route params use `:eventId` (demo event: `neon-solstice`).
 ### Attend
 | ID | Screen | File(s) | Route | In from | Out to |
 |---|---|---|---|---|---|
-| S12 | Pre-event notification | ex23 | ⚠ decision needed (Q4) | system notification | "Open Exper" → S13 |
-| — | **Check-in / gate QR** | — | — | — | ⚠ **missing** (Q2) |
+| S12 | Pre-event notification | ex23 | in-app banner (Q4 a) | system notification | "Open Exper" → S13 |
+| — | Check-in / gate pass | — | — | — | not built: the S11 pass barcode is the gate pass (Q2 a) |
 | S13 | Live Experience (event lobby) | ex5 | `/live` | tab bar, S11, S12, S14 | Main Hall row → S15 · Squad row → S19 · "What are you noticing?" chip → S16 · Quick One reaction → S17 (Q7) · ✕ → S14 |
 | S14 | Pocket Mode | ex21 | `/live/pocket` | S13 ✕ | "Return to Neon Solstice" → S13 · "End Experience" → S21 |
 
@@ -65,7 +65,7 @@ Route params use `:eventId` (demo event: `neon-solstice`).
 | S15 | Capture a Moment of Light | ex8 | `/live/prompts/light` | S13, S16 | back → S13 · capture → S13 (response added to "Recent responses") |
 | S16 | Find Something Blue | ex24 | `/live/prompts/blue` | S13 | "I found blue" → capture (S15 layout, blue prompt) · "I'd rather just wander" / ✕ → S13 |
 | S17 | How Did That Feel? | ex25 | `/live/pulse` | S13 (Q7) | choice → S13 · ⚠ design has no exit, add ✕ → S13 |
-| S18 | Squad notification | ex22 | ⚠ decision needed (Q4) | system notification | "Join Them" → S19 |
+| S18 | Squad notification | ex22 | in-app banner (Q4 a) | system notification | "Join Them" → S19 |
 | S19 | Squad Hub | ex26 | `/live/squad` | S13, S18 | back → S13 · "My rank within the squad" → S20 · View all → ⚠ no screen |
 | S20 | Event Leaderboard | ex27 | `/live/leaderboard` | S19 | back → S19 |
 
@@ -124,7 +124,7 @@ prompts (S15–S17), Pocket Mode, and Leaderboard.
 | Price | ₦25,000 (ex9, ex10, ex11, ex13); ₦32,500 + ₦2,500 fee (ex14); ₦30,000 + fees = ₦35,000 (ex15) | **₦25,000, fees included** (ex9 says "all fees incl."), ≈ **16.50 USDC** |
 | Quantity | 2 passes default (ex9); 1 everywhere else | **Default 1** |
 | Gas | "ZERO GAS" (ex13) and "single 16.50 USDC transfer" (ex17) vs 0.0006 ETH gas line (ex11) | **Zero gas.** Drop the gas line on S10 (Q8) |
-| Network | "Ethereum · Polygon · Base" (ex17) vs Ethereum (ex11) | Keep the network dropdown on S10, default **Base**? (Q8) |
+| Network | "Ethereum · Polygon · Base" (ex17) vs Ethereum (ex11) | Keep the network dropdown on S10, default **Base** (Q8, answered) |
 | Event subtitle | ex11 says "Immersive listening experience", which is Sound/Scape's copy | Use **Neon Solstice's own subtitle** |
 | User | Tope Adebayo, tope@exper.io (ex14); Tope Banjo @stellar_01 (ex15, ex20); Home greets "Tope" | **Tope Banjo** (Q6). ⚠ `@stellar_01` is also listed as *another* person on ex18 |
 | Squad | "The Neon Nomads · 8 people" (ex5, ex12); "SOL-SQUAD" (ex22); "Name of our squad" placeholder (ex26); Sinmi/Bode/Salman are members (ex26) but each leads a rival squad (ex27) | **The Neon Nomads** (8 people). Leaderboard squads need other names (Q6) |
@@ -161,14 +161,17 @@ The exports are about 190–300px wide. Small text on ex6, ex9, ex10, ex15 and e
 
 - **Q1 (M7):** Should I build the Generate "memory reveal" screen from the CLAUDE.md §6.8 pattern (artwork left, info and share/download right)? Or will you supply a design?
 - **Q2 (M4):** Check-in: add a screen, or reuse the S11 pass (barcode) as the gate pass?
+  **Answered 2026-09-22:** (a) reuse the S11 pass. Its barcode is the gate pass; no check-in screen is built.
 - **Q3 (M2):** Lander (ex6): keep it as the first-visit landing at `/welcome` with its bottom nav removed? Or drop it?
   **Answered 2026-09-21:** keep it at `/welcome`, shown on first visit only (Splash → `/welcome` → `/home`). Its own bottom nav is removed. Desktop is a split layout (copy left, featured image right). ex6 data fixes: 8:00 PM, not 22:00; "No tickets. No waiting lines." is dropped because it contradicts Buy; Solar Pulse is added to the mock data. Lineup host confirmed as `@aura_pilot` (the `@sonic_pilot` in Phase 0 was a misread).
 - **Q4 (M4/M6):** Lock-screen notifications (ex22, ex23) can't be real OS lock screens on the web. Options: (a) build the notification card as an in-app banner, (b) standalone demo routes that mimic the lock screen, (c) skip.
+  **Answered 2026-09-22:** (a) in-app banner, for ex23 (M4) and ex22 (M6). No fake lock screen.
 - **Q5 (M7):** Brand / Message (ex19, light theme): skip, or build as an `/about` page?
 - **Q6 (M1):** Confirm the canonical mock data: user **Tope Banjo**, whether to keep handle `@stellar_01` (it collides with ex18), leaderboard squad names, and which lineup act replaces "Don Jazzy".
   **Answered 2026-09-21:** keep the mock data as it is. Use the canonical values in §5 unchanged (Tope Banjo `@stellar_01`, The Neon Nomads, Neon Solstice). Leaderboard squad names and the lineup act stay as the designs show them.
 - **Q7 (M5):** Entry to ex25: tapping a "Quick one" reaction on S13 opens the full-screen version. OK?
 - **Q8 (M4):** USDC: drop the gas line (zero gas) and default the network to Base?
+  **Answered 2026-09-22:** yes to both. S10 has no gas line; the network dropdown stays (Ethereum · Polygon · Base) and defaults to Base.
 - **Q9 (M3/M6):** Remove the ex14 add-on stepper, and hide Join / Create Squad when the user is already in a squad?
   **Answered 2026-09-21 (add-on half):** remove the ex14 "Wristband Sync & Spatial Memory" add-on stepper "for now". The Join / Create Squad half stays open until M6.
 - **Q10 (M1):** Fonts: use the ex1 system (Anton / Space Grotesk / JetBrains Mono) everywhere?

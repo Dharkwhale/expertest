@@ -1,4 +1,5 @@
 import { orderQuery, type PaymentMethod, type Quantities } from "@/lib/order";
+import type { WalletId } from "@/lib/wallet";
 
 // One place that builds checkout URLs (flow.md §1 S06–S11), so every step links to the
 // next and previous one with the same order in the query string (decision D2).
@@ -14,9 +15,14 @@ export const checkoutRoutes = {
     withQuery(`/events/${eventId}/checkout`, orderQuery(quantities, method)),
   card: (eventId: string, quantities: Quantities) =>
     withQuery(`/events/${eventId}/checkout/card`, orderQuery(quantities, "card")),
-  // S09 is M4: this route 404s until then
   wallet: (eventId: string, quantities: Quantities) =>
     withQuery(`/events/${eventId}/checkout/wallet`, orderQuery(quantities, "usdc")),
+  // S10: the wallet picked on S09 rides along (decision D6); none = the generic Connect button
+  crypto: (eventId: string, quantities: Quantities, walletId?: WalletId) =>
+    withQuery(
+      `/events/${eventId}/checkout/crypto`,
+      orderQuery(quantities, "usdc") + (walletId ? `&wallet=${encodeURIComponent(walletId)}` : ""),
+    ),
   pass: (eventId: string, quantities: Quantities, method: PaymentMethod) =>
     withQuery(`/events/${eventId}/pass`, orderQuery(quantities, method)),
 };

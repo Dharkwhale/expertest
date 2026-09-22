@@ -30,9 +30,12 @@ still need loading / error / empty / success states, driven by that mock layer.
 | `src/app/globals.css` | **all design tokens** (`@theme`), `label-caps` and `bg-splash` utilities | Tailwind v4: there's no `tailwind.config.js`; default palette cleared |
 | `src/app/page.tsx` | S01 Splash route `/` | outside `(tabs)`: no nav |
 | `src/app/(tabs)/layout.tsx` | app shell: TopNav (md+), BottomTabBar (mobile), page container | wraps every screen that shows the tab bar |
-| `src/app/(tabs)/{home,explore,live,moments,you}/page.tsx` | the 5 tab routes | home + explore built (M2); live, moments, you are placeholders until M4 / M7 |
+| `src/app/(tabs)/{home,explore,moments,you}/page.tsx` | 4 of the 5 tab routes | home + explore built (M2); moments, you are placeholders until M7. Home also shows the S12 notification card (M4) |
+| `src/app/(live)/layout.tsx`, `(live)/live/page.tsx` | S13 Live Experience `/live` | same nav as `(tabs)` but **no site footer** and a centred `max-w-md` column (§6.7). S19 Squad Hub joins it in M6 |
+| `src/app/(checkout)/events/[eventId]/checkout/{wallet,crypto}/page.tsx` | S09 Connect Wallet, S10 Confirm USDC | M4 USDC path; same order-in-URL gate as the card path |
 | `src/app/welcome/page.tsx` | S02 Lander: own header, no nav | first visit only (`lib/first-visit.ts`) |
 | `src/app/(detail)/events/[eventId]/page.tsx` | S05 Event Details | the `(detail)` layout is TopNav only; the screen owns its bottom CTA |
+| `src/components/live/` | M4 live pieces: `SpaceRow`, `ReactionPicker`, `NotificationCard` (S12) | |
 | `src/components/{events,explore,lander,event-details}/` | M2 screen pieces: event cards, Explore feed, Lander worlds, Details aside/story | shared cards live in `events/` |
 | `src/components/nav/` | `nav-items.ts` (single tab list), `BottomTabBar`, `TopNav` | both navs render from the one list |
 | `src/components/ui/` | shared primitives: Button/ButtonLink, IconButton, Chip, LiveBadge, Avatar, AvatarStack, SectionLabel, Modal | extract new shared UI here on first use |
@@ -76,6 +79,10 @@ Append-only. Supersede with a new row; never delete.
 | 2026-09-21 | `(detail)` route group: top nav on md+, no tab bar, screen owns its bottom CTA | flow.md hides the tab bar on S05; desktop still needs a way out of a deep page | Putting details in `(tabs)` and hiding the bar per page |
 | 2026-09-21 | Data states are per-section, reviewable via `?state=loading\|error\|empty` (`lib/view-state.ts`, allow-listed) | Mock data is synchronous, so non-ready states are otherwise unreachable for review (user's pick, M2). Cost: those 4 routes render dynamically (GAP-008) | Route-level `loading.tsx`/`error.tsx`; an artificial delay |
 | 2026-09-21 | Back button uses an in-app route counter (`nav/NavigationTracker.tsx`), not `history.length` | `history.length` counts pre-app pages, so Back on a deep link left the site (reproduced in S05 verification) | `history.length > 1`; `document.referrer` |
+| 2026-09-22 | `(live)` route group for `/live`: TopNav + BottomTabBar, no `SiteFooter`, `max-w-md` column | User's pick D9 + D7: live is immersive like checkout; §6.7 phone-first on desktop | Keeping `/live` in `(tabs)` with the footer; a two-column desktop lobby |
+| 2026-09-22 | USDC path is mock navigation only: no wallet SDK, no `window.ethereum`, no signing; fixed mock address; `?wallet=` allowlisted in `lib/wallet.ts` (D6); network is client state over an allowlist, default Base (Q8) | Security bar + V1 is mock-only; a wallet library would need approval and a real contract | A wallet SDK (wagmi/viem); carrying the network in the URL |
+| 2026-09-22 | One `PayButton` for both paths (`method: "card" \| "usdc"` picks the copy) | Don't add a second pattern for a solved problem (D3's processing/declined flow) | A separate USDC confirm button |
+| 2026-09-22 | S12 notification is an in-app card on Home, dismissible per browser session via `sessionStorage` + `useSyncExternalStore` | Q4 a + D5 a: a website can't draw on the lock screen; dismissal is a per-viewer convenience | Fake lock-screen route; `localStorage` (would hide it forever) |
 | 2026-09-21 | Controls whose screen doesn't exist render as designed but `aria-disabled` (`UnavailableButton`, `IconButton unavailable`) | User's pick, M2: keeps design fidelity, no dead clicks, announced as "not available yet" | Hiding them; dimming them |
 | 2026-09-21 |  route group: top nav on md+, no tab bar, screen owns its bottom CTA | flow.md hides the tab bar on S05; desktop still needs a way out of a deep page | Putting details in  and hiding the bar per page |
 | 2026-09-21 | Data states are per-section and reviewable via  (, allow-listed) | Mock data is synchronous, so non-ready states are otherwise unreachable for review (user pick, M2) | Route-level /; an artificial delay |
