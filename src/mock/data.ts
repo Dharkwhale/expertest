@@ -485,6 +485,50 @@ export const pulse = {
   ],
 } as const;
 
+// ex26 Squad Hub (S19). "Name of our squad" placeholder → the canonical squad. ex26 says "My
+// rank #3" while its top-3 list is Sinmi, Bode, Salman (no Tope): the rank becomes #4, the
+// smallest change that keeps the list as designed.
+export const squadHub = {
+  tagline: "Every star shines brighter in a cluster. Find your light.",
+  image: unsplash("1462331940025-496dfbfc7564"),
+  imageAlt: "A spiral galaxy",
+  synergy: 65,
+  myRank: 4,
+  rankingIds: ["u-sinmi", "u-bode", "u-salman"],
+};
+
+// ex27 Event Leaderboard (S20). Squad names and leaders are kept exactly as designed (Q6,
+// answered 2026-09-21), even though Sinmi, Bode and Salman are also Neon Nomads on ex26.
+// Squad images → tone tiles; individual faces reuse attendeePreview.
+export const leaderboard = {
+  squads: [
+    { id: "sinmi", name: "sinmi's squad", status: "Surging ahead", score: 92, points: "8.2k pts", tone: "primary" },
+    { id: "salman", name: "salman's squad", status: "Steady alignment", score: 78, tone: "secondary" },
+    { id: "bode", name: "bode's squad", status: "Gaining momentum", score: 64, tone: "tertiary" },
+  ] satisfies { id: string; name: string; status: string; score: number; points?: string; tone: Tone }[],
+  individuals: [
+    { id: "femisola", name: "Femisola", squad: "sinmi's squad", essence: 2480, top: true, avatar: attendeePreview[0] },
+    { id: "julian", name: "Julian Grey", squad: "Lunar Drifters", essence: 2120, avatar: attendeePreview[1] },
+    { id: "elias", name: "Elias Thorne", squad: "The Neon Nomads", essence: 1950, avatar: attendeePreview[2] },
+    { id: "sasha", name: "Sasha K.", squad: "Solar Echoes", essence: 1820, avatar: attendeePreview[3] },
+  ] satisfies { id: string; name: string; squad: string; essence: number; top?: boolean; avatar: string }[],
+  myGatheringRank: 412,
+};
+
+// ex22 squad notification (S18), an in-app card at the top of /live (Q4 a, answered
+// 2026-09-22). "SOL-SQUAD" → the canonical squad. The four faces are ex26's named members;
+// ex22's initials (EV, MF, AP, TP) match no one in the squad.
+export const squadNotice = {
+  channel: "Squad radar",
+  title: "Your little constellation is forming.",
+  here: 4,
+  density: "High (88%)",
+  location: "Main Hall · Stage Right (Zone A)",
+  distance: "24m away",
+  quote: "The room is getting warmer.",
+  footer: "Radar active · Haptic guidance enabled",
+};
+
 // ex23 pre-event notification, shown as an in-app card on Home (Q4 a, D5 a). "Starts in 30
 // minutes" → "is happening now": Neon Solstice is live everywhere else in the app.
 export const liveNotice = {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CloseIcon, UserIcon } from "@/components/icons";
 import { ReactionPicker } from "@/components/live/ReactionPicker";
 import { SpaceRow } from "@/components/live/SpaceRow";
+import { SquadNotice } from "@/components/live/SquadNotice";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { LiveBadge } from "@/components/ui/LiveBadge";
@@ -45,8 +46,10 @@ export default async function LivePage({ searchParams }: PageProps<"/live">) {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Hero: ex5's dark header over the event image, bleeding to the edges on mobile */}
-      <header className="relative isolate -mx-4 -mt-4 flex min-h-72 flex-col justify-between overflow-hidden px-4 pt-4 pb-5 md:mx-0 md:mt-0 md:rounded-card">
+      {/* S18 (ex22): the squad card sits above the lobby (Q4 a, answered 2026-09-22) */}
+      <SquadNotice />
+      {/* Hero: ex5's dark header over the event image, bleeding to the side edges on mobile */}
+      <header className="relative isolate -mx-4 flex min-h-72 flex-col justify-between overflow-hidden px-4 pt-4 pb-5 md:mx-0 md:mt-0 md:rounded-card">
         <Image src={event.heroImage} alt="" fill preload sizes="(min-width: 768px) 28rem, 100vw" className="-z-20 object-cover" />
         <span aria-hidden="true" className="absolute inset-0 -z-10 bg-linear-to-b from-neutral-950/80 via-neutral-950/70 to-neutral-950" />
         <div className="flex items-center justify-between">

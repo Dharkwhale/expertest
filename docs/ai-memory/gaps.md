@@ -63,7 +63,7 @@
 
 - **Category:** tech-debt
 - **Severity:** low
-- **Location:** `src/lib/view-state.ts:11`; used by `src/app/(tabs)/home/page.tsx:26`, `explore/page.tsx:13`, `src/app/welcome/page.tsx:20`, `src/app/(detail)/events/[eventId]/page.tsx:27`, every `(checkout)` page, and (M4, 2026-09-22) `/live`, S09 `checkout/wallet`, S10 `checkout/crypto` (S10 also reads `?state=declined`), and (M5) `/live/pocket`, `/live/prompts/light`, `/live/prompts/blue/capture`
+- **Location:** `src/lib/view-state.ts:11`; used by `src/app/(tabs)/home/page.tsx:26`, `explore/page.tsx:13`, `src/app/welcome/page.tsx:20`, `src/app/(detail)/events/[eventId]/page.tsx:27`, every `(checkout)` page, and (M4, 2026-09-22) `/live`, S09 `checkout/wallet`, S10 `checkout/crypto` (S10 also reads `?state=declined`), and (M5) `/live/pocket`, `/live/prompts/light`, `/live/prompts/blue/capture`, and (M6) `/live/squad`, `/live/leaderboard`
 - **Found:** 2026-09-21, `next build` route table after M2
 - **Problem:** Reading `searchParams` opts `/home`, `/explore`, `/welcome` and `/events/[eventId]` into on-demand rendering (M1 had them static). Anyone in production can also force the loading/error/empty UI. Harmless (values are allow-listed, no data is exposed), but it isn't product behaviour.
 - **Fix:** Once a real data layer exists, derive state from it and delete `readViewState`. Or, before a public deploy, honour `?state` only when `process.env.NODE_ENV !== "production"`. Verify: the `next build` route table shows ○ for those routes.

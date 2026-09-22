@@ -99,6 +99,12 @@ visible in any design and was chosen to complete the scale; re-check derived val
 - **Timers** (`CountdownRing`): count in text once per second, stop at zero, no ring animation unless a design shows one.
 - **Handwritten asides** (ex8, ex24): Space Grotesk italic, as M3's ex9 asides.
 
+### Patterns added in M6 (reuse them)
+
+- **In-app notifications:** `NotificationCard` shell with a unique `storageKey`; the body is children (see `PreEventNotice`, `SquadNotice`). Two-line header (app · channel, then tag + time) so nothing truncates at 375px.
+- **Progress / scores:** `ui/ProgressBar` (`role="progressbar"`, 0–100). Lime for the leader or primary metric, `tertiary` for squad synergy, `neutral` for the rest.
+- **Ranked lists:** `<ol>` with an `sr-only` "Rank n" prefix; the number is visual only.
+
 ## Design → code fidelity checklist
 
 1. **Inventory before coding:** layout, spacing, type, colours, radii, states shown.

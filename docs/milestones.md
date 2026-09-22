@@ -76,9 +76,9 @@ Every data-driven view also gets loading / error / empty states, driven by the m
 
 ## M6 — Participate: squads
 **Screens**
-- [ ] S18 Squad notification (ex22): in-app card (Q4 a)
-- [ ] S19 Squad Hub (ex26): `/live/squad`
-- [ ] S20 Event Leaderboard (ex27): `/live/leaderboard`
+- [x] S18 Squad notification (ex22): in-app card at the top of `/live` (Q4 a)
+- [x] S19 Squad Hub (ex26): `/live/squad`
+- [x] S20 Event Leaderboard (ex27): `/live/leaderboard`
 
 **Introduces:** `ProgressBar`, `RankRow`, `MemberRow`
 
