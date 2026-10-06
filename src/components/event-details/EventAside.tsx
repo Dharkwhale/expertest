@@ -76,25 +76,38 @@ export function EventAside({
 
       {/* Mobile: fixed to the bottom edge (ex10). lg: first in the sticky column, so the
           primary action is above the fold at 1280×900. */}
+      {/* Glass trial round 4: on mobile the bar sits over scrolling content, so its blur ramps
+          from clear at the lit top edge to fully frosted at the bottom (`glass-ramp`, four
+          masked layers; values in globals.css). On lg the same element is a static card with
+          the accent gradient border and no ramp. */}
       <div
         className={cx(
-          "fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-neutral-800 bg-neutral-950/95 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur",
-          "md:px-8 lg:static lg:order-first lg:flex-col lg:items-stretch lg:rounded-card lg:border lg:bg-neutral-900 lg:p-5 lg:backdrop-blur-none",
+          "fixed inset-x-0 bottom-0 z-40 isolate overflow-hidden border-t border-neutral-50/20 bg-ink/35",
+          "grid grid-cols-[auto_1fr] items-center gap-4 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
+          "md:px-8 lg:static lg:order-first lg:grid-cols-1 lg:gap-3 lg:rounded-card lg:border-t-0 lg:bg-transparent lg:p-5 lg:glass-card",
         )}
       >
+        <span aria-hidden="true" className="glass-ramp -z-10 lg:hidden">
+          <span />
+          <span />
+          <span />
+          <span />
+        </span>
+        <span aria-hidden="true" className="glass-spec -z-10" />
+
         {fromTier && (
-          <div>
-            <p className="label-caps text-neutral-400">From</p>
-            <p className="flex flex-wrap items-baseline gap-x-2">
-              <span className="font-display text-2xl tabular-nums">{formatNgn(fromTier.priceNgn)}</span>
-              <span className="text-sm text-neutral-400">≈ {toUsdc(fromTier.priceNgn).toFixed(2)} USDC</span>
+          <div className="min-w-0">
+            <p className="label-caps text-neutral-200">From</p>
+            <p className="font-display text-2xl whitespace-nowrap tabular-nums">{formatNgn(fromTier.priceNgn)}</p>
+            <p className="text-xs whitespace-nowrap text-neutral-200 tabular-nums">
+              ≈ {toUsdc(fromTier.priceNgn).toFixed(2)} USDC
             </p>
           </div>
         )}
         <ButtonLink
           href={`/events/${event.id}/access`}
           size="lg"
-          className={cx("shrink-0", !fromTier && "flex-1")}
+          className={cx("w-full", fromTier && "col-start-2")}
         >
           Join experience
           <ArrowRightIcon className="size-5" />

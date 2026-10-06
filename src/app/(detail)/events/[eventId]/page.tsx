@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { EventAside } from "@/components/event-details/EventAside";
+import { GlassBackdrop } from "@/components/glass/GlassBackdrop";
+import { MeshBackdrop } from "@/components/glass/MeshBackdrop";
+import { NoiseOverlay } from "@/components/glass/NoiseOverlay";
 import { EventStory } from "@/components/event-details/EventStory";
 import { BookmarkIcon, ShareIcon, UserIcon } from "@/components/icons";
 import { BackButton } from "@/components/nav/BackButton";
@@ -31,6 +34,12 @@ export default async function EventDetailsPage({ params, searchParams }: PagePro
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 md:px-8 md:pt-8">
+      {/* Glass trial layers, back to front: mesh blobs, the blurred hero, grain, then content */}
+      <MeshBackdrop />
+      <NoiseOverlay />
+      <GlassBackdrop>
+        <Image src={event.heroImage} alt="" fill sizes="100vw" className="object-cover" />
+      </GlassBackdrop>
       {/* Hero: full-bleed on mobile, contained + rounded at 420px from md (§6.4) */}
       <section
         aria-labelledby="event-title"
@@ -53,17 +62,17 @@ export default async function EventDetailsPage({ params, searchParams }: PagePro
         <div className="flex flex-col gap-3 p-4 md:p-6 lg:max-w-3xl">
           {event.isLive && (
             <ul className="flex flex-wrap gap-2" aria-label="Status">
-              <li className="label-caps inline-flex items-center gap-1.5 rounded-full border border-primary/70 bg-neutral-950/70 px-3 py-1 text-primary backdrop-blur-sm">
+              <li className="label-caps inline-flex items-center gap-1.5 rounded-full border border-primary/70 bg-neutral-950/90 px-3 py-1 text-primary">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-primary" />
                 Live now
               </li>
               {event.details && (
-                <li className="label-caps rounded-full bg-neutral-800/80 px-3 py-1 text-neutral-200 backdrop-blur-sm">
+                <li className="label-caps rounded-full bg-neutral-800 px-3 py-1 text-neutral-200">
                   {event.details.format}
                 </li>
               )}
               {event.attendingCount && (
-                <li className="label-caps inline-flex items-center gap-1.5 rounded-full bg-neutral-950/70 px-3 py-1 text-secondary backdrop-blur-sm">
+                <li className="label-caps inline-flex items-center gap-1.5 rounded-full bg-neutral-950/90 px-3 py-1 text-secondary">
                   <UserIcon className="size-3.5" />
                   {formatCompact(event.attendingCount)} in room
                 </li>

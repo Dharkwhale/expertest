@@ -84,6 +84,140 @@
     radial-gradient(62% 42% at 34% 90%, var(--color-splash-ember), transparent 72%);
 }
 
+/* Glassmorphism trial (branch `glass-trial`, 2026-10-05): the ONE place blur values live.
+   Equivalent to bg-white/10 + backdrop-blur-xl + border white/20. Written as raw rgb because
+   this project clears Tailwind's default palette (`--color-*: initial`), so `white` has no
+   class; this keeps the trial out of the design tokens. Use only on the sticky action card,
+   a nav bar, or a modal/sheet — never on repeated list or grid items. */
+/* Glass depth tiers (round 4). Saturation is what stops glass reading grey: the blur alone
+   averages colour towards mud, so every tier boosts it back. Standard property only: the
+   build's CSS minifier drops `backdrop-filter` when a hand-written -webkit- copy sits
+   beside it, and adds the prefix itself.
+     glass-low  — nav / top bars
+     glass-mid  — cards
+     glass-high — modals and the floating tab bar (brightest edge) */
+@utility glass-low {
+  background-color: rgb(0 0 0 / 0.3);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+@utility glass-mid {
+  background-color: rgb(0 0 0 / 0.32);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 0.15);
+  border-top-color: rgb(255 255 255 / 0.22);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.37);
+}
+
+@utility glass-high {
+  background-color: rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-top-color: rgb(255 255 255 / 0.3);
+  box-shadow: 0 18px 48px rgb(0 0 0 / 0.55);
+}
+
+/* The sliding droplet in the floating tab bar: a second, smaller lens riding on the pill.
+   The brightness bump is what fakes refraction; the inset bottom shadow gives it depth so it
+   reads as a lens rather than a flat chip. */
+@utility glass-droplet {
+  background-color: rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(12px) saturate(180%) brightness(1.15);
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-top-color: rgb(255 255 255 / 0.4);
+  box-shadow: inset 0 -6px 12px -6px rgb(0 0 0 / 0.45);
+}
+
+/* The droplet's specular arc: bright at the top, gone by half way down. */
+@utility glass-arc {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0.18) 0%, rgb(255 255 255 / 0.06) 25%, transparent 50%);
+}
+
+/* The lit sheen: a diagonal white gradient from the top-left, gone by ~40%. Sits inside a
+   glass surface as an overlay and takes the parent's radius. */
+@utility glass-spec {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.12) 0%, rgb(255 255 255 / 0.04) 22%, transparent 40%);
+}
+
+/* Progressive blur (round 4): four stacked layers, each blurrier and masked to its own band,
+   so the bar ramps from clear at its top edge to fully frosted at the bottom. Blur values
+   stay here rather than inline. */
+@utility glass-ramp {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  & > span {
+    position: absolute;
+    inset: 0;
+  }
+
+  & > span:nth-child(1) {
+    backdrop-filter: blur(4px) saturate(180%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 25%);
+  }
+
+  & > span:nth-child(2) {
+    backdrop-filter: blur(10px) saturate(180%);
+    mask-image: linear-gradient(to bottom, transparent 25%, #000 50%);
+  }
+
+  & > span:nth-child(3) {
+    backdrop-filter: blur(22px) saturate(180%);
+    mask-image: linear-gradient(to bottom, transparent 50%, #000 75%);
+  }
+
+  & > span:nth-child(4) {
+    backdrop-filter: blur(44px) saturate(180%);
+    mask-image: linear-gradient(to bottom, transparent 75%, #000 100%);
+  }
+}
+
+/* Accent card: glass-mid's blur and saturation, but the 1px cyan → purple gradient border
+   from round 3 instead of a white rim (fill clipped to the padding box, gradient to the
+   border box). Accent colours come from the existing palette tokens. */
+@utility glass-card {
+  background:
+    linear-gradient(rgb(8 8 12 / 0.55), rgb(8 8 12 / 0.55)) padding-box,
+    linear-gradient(135deg, var(--color-secondary), var(--color-tertiary)) border-box;
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid transparent;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 8px 32px rgb(0 0 0 / 0.37);
+}
+
+/* Mesh background blobs drift very slowly. The global prefers-reduced-motion rule below
+   flattens this to a still image, which is the intended fallback. */
+@keyframes glass-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6%, -4%, 0) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-5%, 5%, 0) scale(0.95);
+  }
+}
+
+@utility glass-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  animation: glass-drift 48s ease-in-out infinite;
+}
+
 @layer base {
   html {
     color-scheme: dark;
