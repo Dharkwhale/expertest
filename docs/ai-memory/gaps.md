@@ -67,7 +67,8 @@
 - **Found:** 2026-09-21, `next build` route table after M2
 - **Problem:** Reading `searchParams` opts `/home`, `/explore`, `/welcome` and `/events/[eventId]` into on-demand rendering (M1 had them static). Anyone in production can also force the loading/error/empty UI. Harmless (values are allow-listed, no data is exposed), but it isn't product behaviour.
 - **Fix:** Once a real data layer exists, derive state from it and delete `readViewState`. Or, before a public deploy, honour `?state` only when `process.env.NODE_ENV !== "production"`. Verify: the `next build` route table shows ○ for those routes.
-- **Status:** open
+- **Status:** **half fixed 2026-10-06** (branch `feat/gap-008-state-gate`, uncommitted). `reviewSwitchEnabled()` in `src/lib/view-state.ts` gates both `readViewState` and the new `readDeclineSwitch`, so no forced state — including `?state=declined` on the pay steps — does anything in a production build. Covered by 4 unit tests that stub `NODE_ENV`.
+  **Still open:** the routes stay dynamically rendered (`ƒ`). Every page still `await`s `searchParams`, which opts it out of static rendering regardless of this gate. Only deleting `readViewState` (once a real data layer exists) restores `○`.
 
 ### GAP-002 — Shared components not yet used by any screen
 

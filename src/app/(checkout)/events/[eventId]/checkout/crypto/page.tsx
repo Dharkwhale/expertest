@@ -18,7 +18,7 @@ import { checkoutRoutes } from "@/lib/checkout-routes";
 import { cx } from "@/lib/cx";
 import { formatNgn } from "@/lib/format";
 import { orderTotals, type Quantities } from "@/lib/order";
-import { readViewState } from "@/lib/view-state";
+import { readDeclineSwitch, readViewState } from "@/lib/view-state";
 import { parseWallet } from "@/lib/wallet";
 import { getEvent, mockWallet, type ExperienceEvent, type Wallet } from "@/mock/data";
 
@@ -34,7 +34,7 @@ export default async function ConfirmUsdcPage({ params, searchParams }: PageProp
   if (!event) notFound();
 
   const state = readViewState(query);
-  const simulateDecline = query.state === "declined"; // review switch for decision D3
+  const simulateDecline = readDeclineSwitch(query); // review switch for D3; off in production (GAP-008)
   const step = resolveCheckout(event.id, query);
   const wallet = parseWallet(query);
   const cancelHref =
