@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ChevronRightIcon } from "@/components/icons";
-import { cardInteractive, cardSurface, stretchedLink } from "@/components/ui/card";
+import { cardInteractive, stretchedLink } from "@/components/ui/card";
 import { cx } from "@/lib/cx";
 import type { Tone, Wallet } from "@/mock/data";
 
@@ -14,7 +14,7 @@ const tileTones: Record<Tone, string> = {
 
 export function WalletOption({ wallet, href }: { wallet: Wallet; href: string }) {
   return (
-    <div className={cx(cardSurface, cardInteractive, "flex items-center gap-4 p-4")}>
+    <div className={cx("glass-edge rounded-card", cardInteractive, "flex items-center gap-4 p-4")}>
       <span
         aria-hidden="true"
         className={cx("grid size-11 shrink-0 place-items-center rounded-thumb border font-semibold", tileTones[wallet.tone])}

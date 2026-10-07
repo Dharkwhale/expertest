@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { CheckoutHeader } from "@/components/checkout/CheckoutHeader";
 import { OrderProblem } from "@/components/checkout/OrderProblem";
 import { StepIndicator } from "@/components/checkout/StepIndicator";
 import { WalletOption } from "@/components/checkout/WalletOption";
 import { MoreIcon, ShieldIcon, WalletIcon } from "@/components/icons";
 import { ButtonLink } from "@/components/ui/Button";
-import { cardSurface } from "@/components/ui/card";
+
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { Skeleton, SkeletonGroup } from "@/components/ui/Skeleton";
@@ -36,6 +37,8 @@ export default async function ConnectWalletPage({ params, searchParams }: PagePr
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 md:px-8">
+      {/* Glass rollout G2: mesh behind the page, grain above it */}
+      <GlassScene />
       <CheckoutHeader
         nav={{ href: back, label: "Back to payment method", kind: "back" }}
         title={<StepIndicator step={2} of={3} />}
@@ -91,7 +94,7 @@ function ConnectWalletContent({ event, quantities }: { event: ExperienceEvent; q
         aria-label="Your ticket"
         className="flex flex-col gap-4 lg:sticky lg:top-6 lg:col-start-3 lg:row-span-3 lg:row-start-1 lg:self-start"
       >
-        <section aria-label="Experience ticket" className={cx(cardSurface, "flex items-start justify-between gap-4 p-4 md:p-5")}>
+        <section aria-label="Experience ticket" className={cx("glass-edge rounded-card", "flex items-start justify-between gap-4 p-4 md:p-5")}>
           <div className="min-w-0">
             <p className="label-caps flex items-center gap-1.5 text-neutral-400">
               <span aria-hidden="true" className="size-1.5 rounded-full bg-primary" />
@@ -141,7 +144,7 @@ function ConnectWalletContent({ event, quantities }: { event: ExperienceEvent; q
         </UnavailableButton>
       </section>
 
-      <p className={cx(cardSurface, "flex gap-3 p-4 text-sm text-neutral-400 lg:col-span-2 lg:row-start-3")}>
+      <p className={cx("glass-edge rounded-card", "flex gap-3 p-4 text-sm text-neutral-400 lg:col-span-2 lg:row-start-3")}>
         <ShieldIcon className="mt-0.5 size-5 shrink-0 text-primary" />
         <span>
           <strong className="font-semibold text-neutral-50">Non-custodial &amp; Zero-permission.</strong> Your wallet is

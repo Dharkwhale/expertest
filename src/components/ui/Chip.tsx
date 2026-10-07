@@ -42,7 +42,7 @@ export function Chip({ children, className, onClick, selected }: ChipProps) {
   return (
     <span
       className={cx(
-        "label-caps inline-flex items-center rounded-full bg-neutral-950/70 px-3 py-1 text-neutral-50 backdrop-blur-sm",
+        "label-caps inline-flex items-center rounded-full bg-neutral-950/85 px-3 py-1 text-neutral-50",
         className,
       )}
     >

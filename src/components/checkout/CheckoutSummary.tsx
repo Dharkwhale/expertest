@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ProgressiveBlur } from "@/components/glass/ProgressiveBlur";
 import { cx } from "@/lib/cx";
 import { formatNgn } from "@/lib/format";
 import type { OrderLine } from "@/lib/order";
@@ -30,13 +31,18 @@ export function CheckoutSummary({
   accent?: string;
 }) {
   return (
+    // Glass rollout G1: the screen's single ramped surface (CLAUDE.md §6b) — clear at the lit
+    // top edge, frosted at the bottom, over the content scrolling beneath it. On lg it becomes
+    // a static sticky card with the accent border and no blur at all.
     <aside
       aria-label="Order total"
       className={cx(
-        "fixed inset-x-0 bottom-0 z-40 flex flex-col gap-3 border-t border-neutral-800 bg-neutral-950/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur",
-        "md:px-8 lg:sticky lg:top-6 lg:z-auto lg:rounded-card lg:border lg:bg-neutral-900 lg:p-5 lg:backdrop-blur-none",
+        "fixed inset-x-0 bottom-0 z-40 isolate flex flex-col gap-3 overflow-hidden border-t border-neutral-50/20 bg-ink/35 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
+        "md:px-8 lg:sticky lg:top-6 lg:z-auto lg:rounded-card lg:border-t-0 lg:bg-transparent lg:p-5 lg:glass-edge",
       )}
     >
+      <ProgressiveBlur className="-z-10 lg:hidden" />
+      <span aria-hidden="true" className="glass-spec -z-10" />
       {lines.length > 0 && (
         <ul className="hidden flex-col gap-2 border-b border-neutral-800 pb-3 text-sm lg:flex">
           {lines.map((line) => (

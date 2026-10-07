@@ -15,17 +15,20 @@ export function EventGridCard({
   variant = "explore",
   headingLevel: Heading = "h3",
   imageClassName,
+  glass,
 }: {
   event: ExperienceEvent;
   variant?: "explore" | "stream";
   headingLevel?: "h2" | "h3";
   /** Aspect override, e.g. a shorter 16:9 image where cards stack in a side rail */
   imageClassName?: string;
+  /** Glass visual system, opt-in: the Lander takes it, Explore stays plain */
+  glass?: boolean;
 }) {
   const count = event.countLabel ?? (event.attendingCount ? `${formatCount(event.attendingCount)} going` : undefined);
 
   return (
-    <article className={cx(cardSurface, cardInteractive, "flex h-full flex-col overflow-hidden")}>
+    <article className={cx(glass ? "glass-edge rounded-card" : cardSurface, cardInteractive, "flex h-full flex-col overflow-hidden")}>
       <div className={cx("relative aspect-4/3 bg-neutral-800", imageClassName)}>
         <Image
           src={event.heroImage}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { CheckoutHeader } from "@/components/checkout/CheckoutHeader";
 import { CheckoutSummary } from "@/components/checkout/CheckoutSummary";
 import { OrderEventCard } from "@/components/checkout/OrderEventCard";
@@ -8,7 +9,7 @@ import { OrderProblem } from "@/components/checkout/OrderProblem";
 import { PayButton } from "@/components/checkout/PayButton";
 import { LockIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/Avatar";
-import { cardSurface } from "@/components/ui/card";
+
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -38,6 +39,8 @@ export default async function ReviewPayPage({ params, searchParams }: PageProps<
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-48 md:px-8 lg:pb-16">
+      {/* Glass rollout G1: drifting mesh behind the page, grain above it */}
+      <GlassScene />
       <CheckoutHeader
         nav={{
           href: step.kind === "ok" ? checkoutRoutes.method(event.id, step.quantities, "card") : checkoutRoutes.access(event.id),
@@ -97,7 +100,7 @@ function ReviewPayContent({
       <div className="flex flex-col gap-4 lg:col-span-2">
         <OrderEventCard event={event} lines={totals.lines} withThumb />
 
-        <section aria-labelledby="tier-heading" className={cx(cardSurface, "flex flex-col gap-4 p-4 md:p-5")}>
+        <section aria-labelledby="tier-heading" className={cx("glass-edge rounded-card", "flex flex-col gap-4 p-4 md:p-5")}>
           <h2 id="tier-heading" className="label-caps text-primary">
             Access tier
           </h2>
@@ -117,7 +120,7 @@ function ReviewPayContent({
           </ul>
         </section>
 
-        <section aria-labelledby="attendee-heading" className={cx(cardSurface, "flex flex-col gap-3 p-4 md:p-5")}>
+        <section aria-labelledby="attendee-heading" className={cx("glass-edge rounded-card", "flex flex-col gap-3 p-4 md:p-5")}>
           <div className="flex items-center justify-between gap-4">
             <SectionLabel>
               <span id="attendee-heading">Attendee details</span>
@@ -138,7 +141,7 @@ function ReviewPayContent({
           </p>
         </section>
 
-        <section aria-labelledby="payment-heading" className={cx(cardSurface, "flex flex-col gap-3 p-4 md:p-5")}>
+        <section aria-labelledby="payment-heading" className={cx("glass-edge rounded-card", "flex flex-col gap-3 p-4 md:p-5")}>
           <div className="flex items-center justify-between gap-4">
             <SectionLabel>
               <span id="payment-heading">Payment method</span>
@@ -173,7 +176,7 @@ function ReviewPayContent({
         </section>
 
         {/* ex14 ledger. lg shows the same lines in the sticky summary, so hide it there */}
-        <section aria-label="Price breakdown" className={cx(cardSurface, "flex flex-col gap-2 p-4 md:p-5 lg:hidden")}>
+        <section aria-label="Price breakdown" className={cx("glass-edge rounded-card", "flex flex-col gap-2 p-4 md:p-5 lg:hidden")}>
           {totals.lines.map((line) => (
             <p key={line.tier.id} className="flex justify-between gap-4 text-sm text-neutral-400">
               <span>

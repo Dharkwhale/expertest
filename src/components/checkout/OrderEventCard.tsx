@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { cardSurface } from "@/components/ui/card";
+
 import { cx } from "@/lib/cx";
 import { formatNgn } from "@/lib/format";
 import type { OrderLine } from "@/lib/order";
@@ -22,7 +22,7 @@ export function OrderEventCard({
   const when = event.isLive ? "Tonight" : event.dateLabel;
 
   return (
-    <section aria-label="Your order" className={cx(cardSurface, "flex items-center gap-4 p-4 md:p-5")}>
+    <section aria-label="Your order" className={cx("glass-edge rounded-card", "flex items-center gap-4 p-4 md:p-5")}>
       {withThumb && (
         <div className="relative size-18 shrink-0 overflow-hidden rounded-thumb bg-neutral-800 md:size-20">
           <Image src={event.heroImage} alt="" fill sizes="80px" className="object-cover" />

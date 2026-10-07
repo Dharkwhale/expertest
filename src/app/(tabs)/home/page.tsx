@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { EventMeta } from "@/components/events/EventMeta";
 import { EventRowCard } from "@/components/events/EventRowCard";
 import { PreEventNotice } from "@/components/live/PreEventNotice";
@@ -8,7 +9,7 @@ import { ArrowRightIcon, BellIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/Avatar";
 import { AvatarStack } from "@/components/ui/AvatarStack";
 import { ButtonLink } from "@/components/ui/Button";
-import { cardInteractive, cardSurface, stretchedLink } from "@/components/ui/card";
+import { cardInteractive, stretchedLink } from "@/components/ui/card";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
@@ -33,6 +34,8 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
 
   return (
     <div className="flex flex-col gap-6 md:gap-8">
+      {/* Glass rollout G2 */}
+      <GlassScene />
       <header className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-neutral-400">{home.greeting}</p>
@@ -58,7 +61,7 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
         </div>
       </header>
 
-      {notice?.isLive && notice.venue && <PreEventNotice room={notice.venue} />}
+      {notice?.isLive && notice.venue && <PreEventNotice room={notice.venue} glass />}
 
       <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
         <section aria-label="Happening now" className="lg:col-span-2">
@@ -75,7 +78,7 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
               action={{ label: "Explore upcoming events", href: "/explore" }}
             />
           ) : (
-            <article className={cx(cardSurface, cardInteractive, "overflow-hidden")}>
+            <article className={cx("glass-edge rounded-card", cardInteractive, "overflow-hidden")}>
               <div className="relative isolate flex aspect-4/3 flex-col justify-end md:aspect-auto md:h-105">
                 <Image
                   src={hero.heroImage}
@@ -145,7 +148,7 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
             <ul className="flex flex-col gap-3">
               {upNext.map((event) => (
                 <li key={event.id}>
-                  <EventRowCard event={event} />
+                  <EventRowCard event={event} glass />
                 </li>
               ))}
             </ul>

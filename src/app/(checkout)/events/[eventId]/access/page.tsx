@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AccessSelector } from "@/components/checkout/AccessSelector";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { CheckoutHeader } from "@/components/checkout/CheckoutHeader";
 import { OrderProblem } from "@/components/checkout/OrderProblem";
 import { PinIcon, ShareIcon } from "@/components/icons";
@@ -27,6 +28,8 @@ export default async function SelectAccessPage({ params, searchParams }: PagePro
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-60 md:px-8 lg:pb-16">
+      {/* Glass rollout G1: drifting mesh behind the page, grain above it */}
+      <GlassScene />
       <CheckoutHeader
         nav={{ href: checkoutRoutes.details(event.id), label: `Back to ${event.title}`, kind: "back" }}
         title={<h1 className="text-lg font-semibold">Select access</h1>}

@@ -44,7 +44,7 @@ export function ReactionPicker({
               <Link
                 href={href}
                 aria-label={label}
-                className="grid aspect-square place-items-center rounded-card border border-neutral-800 bg-neutral-900 transition-colors hover:border-neutral-500 hover:bg-neutral-800 active:scale-98"
+                className="glass-edge grid aspect-square place-items-center rounded-card active:scale-98"
               >
                 <Icon className={cx("size-7", tones[tone])} />
               </Link>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cardInteractive, cardSurface, stretchedLink } from "@/components/ui/card";
+import { cardInteractive, stretchedLink } from "@/components/ui/card";
 import { cx } from "@/lib/cx";
 
 // ex5 "What's happening" row: thumb, title, status, "● Live". A link when the space has a
@@ -18,7 +18,7 @@ export function SpaceRow({
   href?: string;
 }) {
   return (
-    <div className={cx(cardSurface, href && cardInteractive, "isolate flex items-center gap-4 p-3")}>
+    <div className={cx("glass-edge rounded-card", href && cardInteractive, "isolate flex items-center gap-4 p-3")}>
       <div className="relative size-14 shrink-0 overflow-hidden rounded-thumb bg-neutral-800">
         <Image src={image} alt="" fill sizes="56px" className="object-cover" />
       </div>

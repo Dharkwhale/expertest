@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
+import { NoiseOverlay } from "@/components/glass/NoiseOverlay";
 import { ButtonLink } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
@@ -22,6 +23,8 @@ export default async function PocketModePage({ searchParams }: PageProps<"/live/
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-linear-to-b from-tertiary/15 via-neutral-950 to-neutral-950 px-4 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:my-8 md:min-h-0 md:rounded-card">
+      {/* Glass rollout G3: grain only — this screen owns its own background */}
+      <NoiseOverlay />
       {state === "loading" ? (
         <SkeletonGroup label="pocket mode" className="flex flex-1 flex-col gap-4">
           <Skeleton className="mx-auto h-8 w-48 rounded-full" />
@@ -52,7 +55,7 @@ export default async function PocketModePage({ searchParams }: PageProps<"/live/
             <p className="text-lg text-neutral-400">{pocketMode.body}</p>
           </div>
 
-          <section aria-label="Your session" className="flex flex-col gap-4 rounded-card border border-neutral-800 bg-neutral-900/80 p-4">
+          <section aria-label="Your session" className="glass-edge flex flex-col gap-4 rounded-card p-4">
             <div className="flex items-center justify-between gap-3 border-b border-neutral-800 pb-3">
               <p className="min-w-0 truncate">
                 <span className="font-display uppercase">{event.title}</span>

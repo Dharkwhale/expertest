@@ -111,6 +111,18 @@ When I share all the screens and say "Start Phase 0":
 
 ---
 
+## 6b. Glass visual system — blur budget (set by the user 2026-10-07)
+
+- **Max 3 blurred surfaces per screen, and at most one of them ramped.** A progressive-blur
+  ramp is one surface but costs 4 `backdrop-filter` elements, so count surfaces, not elements.
+- **On tab screens, budget 2 page surfaces:** the floating tab bar already owns the rest.
+- `backdrop-blur` is reserved for fixed or floating surfaces: sticky CTA/summary bars, modals,
+  the top nav. **Never on repeated list or grid items** — those get the gradient border and
+  inset highlight instead (`glass-edge`), which costs nothing to composite.
+- Every blurred surface also gets `saturate(180%)` and a specular overlay, or it reads grey.
+- Use the existing tiers — `glass-low` (nav), `glass-mid` (cards), `glass-high` (modals, the
+  floating bar). Don't add a fourth tier.
+
 ## 7. Don't / Do
 **Don't:** add dashboards, sidebars, extra stats, carousels, or animations that aren't in
 any design.

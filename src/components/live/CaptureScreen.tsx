@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CapturePrompt } from "@/components/live/CapturePrompt";
+import { NoiseOverlay } from "@/components/glass/NoiseOverlay";
 import { PromptNav } from "@/components/live/PromptNav";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { Skeleton, SkeletonGroup } from "@/components/ui/Skeleton";
@@ -38,6 +39,8 @@ export function CaptureScreen({
 }) {
   return (
     <main className="mx-auto w-full max-w-md pb-[max(2rem,env(safe-area-inset-bottom))] md:py-8">
+      {/* Glass rollout G3: grain only — the photo header is this screen's background */}
+      <NoiseOverlay />
       <div className="relative isolate flex min-h-96 flex-col justify-between overflow-hidden px-4 pt-4 pb-6 md:rounded-card">
         <Image src={image} alt="" fill preload sizes="(min-width: 768px) 28rem, 100vw" className="-z-20 object-cover" />
         <span aria-hidden="true" className="absolute inset-0 -z-10 bg-linear-to-b from-neutral-950/40 via-neutral-950/60 to-neutral-950" />

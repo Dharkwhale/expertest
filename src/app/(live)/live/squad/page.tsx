@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRightIcon, InfoIcon } from "@/components/icons";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { PromptNav } from "@/components/live/PromptNav";
 import { Avatar } from "@/components/ui/Avatar";
-import { cardSurface } from "@/components/ui/card";
+
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { IconButton } from "@/components/ui/IconButton";
@@ -29,6 +30,8 @@ export default async function SquadHubPage({ searchParams }: PageProps<"/live/sq
 
   return (
     <div className="flex flex-col gap-8">
+      {/* Glass rollout G3 */}
+      <GlassScene />
       <header className="grid grid-cols-[2.75rem_1fr_2.75rem] items-center gap-3">
         <PromptNav kind="back" />
         <h1 className="text-center text-lg font-semibold">{inSquad ? squad.name : "Squad"}</h1>
@@ -65,7 +68,7 @@ export default async function SquadHubPage({ searchParams }: PageProps<"/live/sq
             </div>
           </div>
 
-          <section aria-label="Squad synergy" className={cx(cardSurface, "flex flex-col gap-3 p-5")}>
+          <section aria-label="Squad synergy" className={cx("glass-edge rounded-card", "flex flex-col gap-3 p-5")}>
             <p className="flex items-center justify-between gap-3">
               <span className="font-semibold text-neutral-50">Squad synergy</span>
               <span className="text-tertiary tabular-nums">{squadHub.synergy}%</span>
@@ -91,7 +94,7 @@ export default async function SquadHubPage({ searchParams }: PageProps<"/live/sq
             </div>
             <ol className="flex flex-col gap-3">
               {ranking.map((member, index) => (
-                <li key={member.id} className={cx(cardSurface, "flex items-center gap-4 rounded-full px-5 py-3")}>
+                <li key={member.id} className={cx("glass-edge rounded-full", "flex items-center gap-4 px-5 py-3")}>
                   <span className={cx("w-4 font-semibold tabular-nums", index === 0 ? "text-tertiary" : "text-neutral-400")}>
                     <span className="sr-only">Rank </span>
                     {index + 1}

@@ -6,9 +6,10 @@ import { liveNotice, liveNow, passTemplate } from "@/mock/data";
 
 // S12 pre-event notification (ex23) at the top of Home (Q4 a, D5 a). "Starts in 30 minutes"
 // → "is happening now" (the event is live); "View venue coordinates" has no map screen.
-export function PreEventNotice({ room }: { room: string }) {
+export function PreEventNotice({ room, glass }: { room: string; glass?: boolean }) {
   return (
     <NotificationCard
+      glass={glass}
       storageKey="exper.liveNotice.dismissed"
       titleId="live-notice-title"
       channel={liveNotice.channel}

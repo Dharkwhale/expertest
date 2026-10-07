@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { CheckoutHeader } from "@/components/checkout/CheckoutHeader";
 import { OrderProblem } from "@/components/checkout/OrderProblem";
 import { PassCard, type PassIds } from "@/components/checkout/PassCard";
@@ -44,6 +45,8 @@ export default async function PassPage({ params, searchParams }: PageProps<"/eve
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 md:px-8">
+      {/* Glass rollout G1: drifting mesh behind the page, grain above it */}
+      <GlassScene />
       <CheckoutHeader
         nav={{ href: "/home", label: "Close and go home", kind: "close" }}
         title={

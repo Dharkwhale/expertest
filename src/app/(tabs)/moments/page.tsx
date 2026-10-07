@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { MomentsFeed } from "@/components/moments/MomentsFeed";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
@@ -19,6 +20,8 @@ export default async function MomentsPage({ searchParams }: PageProps<"/moments"
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Glass rollout G3: mesh + grain; the cards stay plain */}
+      <GlassScene />
       <h1 className="font-display text-display uppercase">Moments</h1>
       {state === "loading" ? (
         <SkeletonGroup label="your moments" className="grid gap-6 lg:grid-cols-2">

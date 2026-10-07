@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { LanderWorlds } from "@/components/lander/LanderWorlds";
 import { MarkWelcomed } from "@/components/lander/MarkWelcomed";
 import { SiteFooter } from "@/components/nav/SiteFooter";
@@ -39,12 +40,14 @@ export default async function WelcomePage({ searchParams }: PageProps<"/welcome"
       </header>
 
       <main>
+        {/* Glass rollout G4 */}
+        <GlassScene />
         {/* Mobile: the photo sits behind the copy, full-bleed. lg: split, copy left,
             photo right, contained and rounded at 420px (CLAUDE.md §6.4). */}
         <section aria-labelledby="lander-heading" className="relative isolate overflow-hidden">
           <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:px-8 md:py-20 lg:grid-cols-2 lg:items-center lg:py-12">
             <div className="flex flex-col items-start gap-5">
-              <p className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-primary/40 bg-neutral-950/70 px-3 py-1.5 text-xs text-neutral-200 backdrop-blur-sm">
+              <p className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-primary/40 bg-neutral-950/85 px-3 py-1.5 text-xs text-neutral-200">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-primary" />
                 <span className="label-caps text-primary">Live collective</span>
                 <span aria-hidden="true">·</span>

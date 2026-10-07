@@ -29,12 +29,12 @@ export function FeaturedEventCard({
           sizes="(min-width: 1152px) 70rem, 100vw"
           className="object-cover"
         />
-        <span className="label-caps absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-neutral-950/80 px-3 py-1 text-primary backdrop-blur-sm">
+        <span className="label-caps absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-neutral-950/85 px-3 py-1 text-primary">
           <span aria-hidden="true" className="size-1.5 rounded-full bg-primary" />
           Trending #1
         </span>
         {/* ex7's stacked tagline over the photo */}
-        <p className="label-caps absolute top-4 right-4 flex flex-col items-end gap-0.5 rounded-thumb bg-neutral-950/70 px-2.5 py-2 text-right backdrop-blur-sm">
+        <p className="label-caps absolute top-4 right-4 flex flex-col items-end gap-0.5 rounded-thumb bg-neutral-950/85 px-2.5 py-2 text-right">
           <span className="text-secondary">Lights</span>
           <span className="text-primary">Sound</span>
           <span className="text-tertiary">People</span>

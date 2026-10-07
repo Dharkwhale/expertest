@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { cardSurface } from "@/components/ui/card";
+
 import { cx } from "@/lib/cx";
 import { formatNgn } from "@/lib/format";
 import type { Tier } from "@/mock/data";
@@ -27,7 +27,7 @@ export function TierCard({
   return (
     <li
       className={cx(
-        cardSurface,
+        "glass-edge rounded-card",
         "relative flex flex-col gap-3 p-4 transition-colors md:p-5",
         selected ? "border-primary" : "hover:border-neutral-500",
       )}

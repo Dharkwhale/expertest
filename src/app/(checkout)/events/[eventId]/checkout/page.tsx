@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { CheckoutHeader } from "@/components/checkout/CheckoutHeader";
 import { OrderEventCard } from "@/components/checkout/OrderEventCard";
 import { OrderProblem } from "@/components/checkout/OrderProblem";
@@ -29,6 +30,8 @@ export default async function PaymentMethodPage({ params, searchParams }: PagePr
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-60 md:px-8 lg:pb-16">
+      {/* Glass rollout G1: drifting mesh behind the page, grain above it */}
+      <GlassScene />
       <CheckoutHeader
         nav={{ href: back, label: "Back to select access", kind: "back" }}
         title={<h1 className="label-caps text-sm text-neutral-200">Checkout</h1>}

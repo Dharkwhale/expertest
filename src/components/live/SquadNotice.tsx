@@ -6,10 +6,11 @@ import { squad, squadNotice } from "@/mock/data";
 // S18 squad notification (ex22) at the top of /live (Q4 a, answered 2026-09-22). "SOL-SQUAD"
 // → the canonical squad; the faces are ex26's four named members; "Join them" → S19. ex22's
 // mono lime "4 of 8 are here." → Anton in primary (Q10).
-export function SquadNotice() {
+export function SquadNotice({ glass }: { glass?: boolean }) {
   const others = squad.memberCount - squad.members.length;
   return (
     <NotificationCard
+      glass={glass}
       storageKey="exper.squadNotice.dismissed"
       titleId="squad-notice-title"
       channel={squadNotice.channel}

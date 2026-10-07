@@ -98,7 +98,7 @@ export function LanderWorlds({
               />
               <span aria-hidden="true" className="absolute inset-0 -z-10 bg-linear-to-t from-neutral-950 via-neutral-950/50 to-transparent" />
 
-              <span className="label-caps absolute top-4 left-4 rounded-full border border-primary/70 bg-neutral-950/70 px-3 py-1 text-primary backdrop-blur-sm">
+              <span className="label-caps absolute top-4 left-4 rounded-full border border-primary/70 bg-neutral-950/85 px-3 py-1 text-primary">
                 Featured portal
               </span>
               <IconButton
@@ -163,7 +163,7 @@ export function LanderWorlds({
             <ul className="grid grid-cols-2 gap-3 lg:grid-cols-1 lg:gap-6">
               {visibleStream.map((event) => (
                 <li key={event.id}>
-                  <EventGridCard event={event} variant="stream" imageClassName="lg:aspect-video" />
+                  <EventGridCard glass event={event} variant="stream" imageClassName="lg:aspect-video" />
                 </li>
               ))}
             </ul>

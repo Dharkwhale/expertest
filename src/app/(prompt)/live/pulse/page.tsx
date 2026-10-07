@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowsInIcon, BoltIcon, BurstIcon, DropIcon, InfinityIcon } from "@/components/icons";
+import { NoiseOverlay } from "@/components/glass/NoiseOverlay";
 import { PromptNav } from "@/components/live/PromptNav";
 import { cx } from "@/lib/cx";
 import { getEvent, liveNow, pulse } from "@/mock/data";
@@ -22,6 +23,8 @@ export default function PulsePage() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-linear-to-b from-neutral-950 via-primary/5 to-neutral-950 px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:my-8 md:min-h-0 md:rounded-card">
+      {/* Glass rollout G3: grain only — this screen owns its own background */}
+      <NoiseOverlay />
       <div className="flex justify-end">
         <PromptNav kind="close" />
       </div>
@@ -60,7 +63,7 @@ function Feeling({ feeling, wide }: { feeling: (typeof pulse.feelings)[number]; 
     <Link
       href="/live"
       className={cx(
-        "flex items-center justify-center gap-3 rounded-card bg-neutral-800 p-5 transition-colors hover:bg-neutral-700 active:scale-98",
+        "glass-edge flex items-center justify-center gap-3 rounded-card p-5 active:scale-98",
         wide ? "min-h-24 flex-row" : "aspect-square flex-col",
       )}
     >

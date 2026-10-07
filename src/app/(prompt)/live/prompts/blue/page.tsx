@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
 import { CountdownRing } from "@/components/live/CountdownRing";
 import { PromptNav } from "@/components/live/PromptNav";
+import { NoiseOverlay } from "@/components/glass/NoiseOverlay";
 import { ButtonLink } from "@/components/ui/Button";
 import { prompts } from "@/mock/data";
 
@@ -15,6 +16,8 @@ export default function BluePromptPage() {
   const blue = prompts.blue;
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:my-8 md:min-h-0 md:rounded-card md:bg-neutral-900/40">
+      {/* Glass rollout G3: grain only — this screen owns its own background */}
+      <NoiseOverlay />
       {/* ex24 fits four pills and ✕ in one row; at 375px they don't, so the "Live chamber"
           status moves to a centred line below (placement only) */}
       <header className="flex items-center gap-2">

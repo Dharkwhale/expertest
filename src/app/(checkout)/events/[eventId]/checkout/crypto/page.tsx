@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { CheckoutHeader } from "@/components/checkout/CheckoutHeader";
 import { NetworkSelect } from "@/components/checkout/NetworkSelect";
 import { OrderProblem } from "@/components/checkout/OrderProblem";
 import { PayButton } from "@/components/checkout/PayButton";
 import { StepIndicator } from "@/components/checkout/StepIndicator";
 import { LockIcon, ShieldIcon } from "@/components/icons";
-import { cardSurface } from "@/components/ui/card";
+
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { IconButton } from "@/components/ui/IconButton";
@@ -42,6 +43,8 @@ export default async function ConfirmUsdcPage({ params, searchParams }: PageProp
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 md:px-8">
+      {/* Glass rollout G2: mesh behind the page, grain above it */}
+      <GlassScene />
       <CheckoutHeader
         nav={{ href: cancelHref, label: "Cancel and go back to payment method", kind: "close" }}
         title={<StepIndicator step={3} of={3} />}
@@ -110,7 +113,7 @@ function ConfirmUsdcContent({
           <h1 className="mt-2 font-display text-display uppercase">Confirm payment</h1>
         </div>
 
-        <section aria-label="Your order" className={cx(cardSurface, "flex flex-col gap-4 p-4 md:p-5")}>
+        <section aria-label="Your order" className={cx("glass-edge rounded-card", "flex flex-col gap-4 p-4 md:p-5")}>
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <ul className="flex flex-wrap gap-2">
@@ -141,7 +144,7 @@ function ConfirmUsdcContent({
           </p>
         </section>
 
-        <section aria-labelledby="channel-heading" className={cx(cardSurface, "flex flex-col gap-3 p-4 md:p-5")}>
+        <section aria-labelledby="channel-heading" className={cx("glass-edge rounded-card", "flex flex-col gap-3 p-4 md:p-5")}>
           <SectionLabel>
             <span id="channel-heading">Payment channel</span>
           </SectionLabel>
@@ -164,7 +167,7 @@ function ConfirmUsdcContent({
       </div>
 
       <aside aria-label="Total due" className="flex flex-col gap-4 lg:sticky lg:top-6 lg:col-start-3 lg:row-start-1 lg:self-start">
-        <section className={cx(cardSurface, "flex flex-col gap-3 p-4 md:p-5")}>
+        <section className={cx("glass-edge rounded-card", "flex flex-col gap-3 p-4 md:p-5")}>
           <ul className="flex flex-col gap-2 text-sm">
             {totals.lines.map((line) => (
               <li key={line.tier.id} className="flex justify-between gap-3 text-neutral-400">

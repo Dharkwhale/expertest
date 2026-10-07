@@ -3,6 +3,7 @@
 import { useSyncExternalStore, type ReactNode } from "react";
 import { ArrowRightIcon, CloseIcon } from "@/components/icons";
 import { ButtonLink } from "@/components/ui/Button";
+import { cx } from "@/lib/cx";
 
 // The in-app version of ex23 / ex22's lock-screen notifications (Q4 a): only the card is
 // kept, never the lock-screen chrome. S12 (Home) and S18 (/live) fill the body. Dismissing
@@ -43,6 +44,7 @@ export function NotificationCard({
   time,
   cta,
   footer,
+  glass,
   children,
 }: {
   /** sessionStorage key for "dismissed" */
@@ -53,6 +55,8 @@ export function NotificationCard({
   tag?: string;
   time: string;
   cta: { label: string; href: string };
+  /** Glass visual system, opt-in: S12 on Home takes it, S18 on /live stays plain */
+  glass?: boolean;
   footer?: ReactNode;
   children: ReactNode;
 }) {
@@ -63,7 +67,7 @@ export function NotificationCard({
   return (
     <section
       aria-labelledby={titleId}
-      className="flex flex-col gap-4 rounded-card border border-neutral-800 bg-neutral-900 p-4 md:p-5 lg:max-w-2xl"
+      className={cx("flex flex-col gap-4 rounded-card p-4 md:p-5 lg:max-w-2xl", glass ? "glass-edge" : "border border-neutral-800 bg-neutral-900")}
     >
       <header className="flex items-center gap-3 border-b border-neutral-800 pb-3">
         <span aria-hidden="true" className="label-caps grid size-9 shrink-0 place-items-center rounded-thumb border border-primary/60 bg-neutral-950 text-primary">

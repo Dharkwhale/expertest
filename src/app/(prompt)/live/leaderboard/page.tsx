@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { InfoIcon } from "@/components/icons";
+import { GlassScene } from "@/components/glass/GlassScene";
 import { PromptNav } from "@/components/live/PromptNav";
 import { AvatarStack } from "@/components/ui/AvatarStack";
-import { cardSurface } from "@/components/ui/card";
+
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { IconButton } from "@/components/ui/IconButton";
@@ -34,6 +35,8 @@ export default async function LeaderboardPage({ searchParams }: PageProps<"/live
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-8 px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:my-8 md:min-h-0 md:rounded-card md:bg-neutral-900/40">
+      {/* Glass rollout G3 */}
+      <GlassScene />
       <header className="grid grid-cols-[2.75rem_1fr_2.75rem] items-center gap-3">
         <PromptNav kind="back" href="/live/squad" label="Back to your squad" />
         <div className="text-center">
@@ -111,7 +114,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps<"/live
                 {individuals.map((person, index) => (
                   <li
                     key={person.id}
-                    className={cx(cardSurface, "flex items-center gap-4 p-3", "top" in person && "border-l-4 border-l-primary")}
+                    className={cx("glass-edge rounded-card", "flex items-center gap-4 p-3", "top" in person && "border-l-4 border-l-primary")}
                   >
                     <span className="relative size-12 shrink-0 overflow-hidden rounded-full bg-neutral-800">
                       <Image src={person.avatar} alt="" fill sizes="48px" className="object-cover" />

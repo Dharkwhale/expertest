@@ -12,6 +12,7 @@ export function EventRowCard({
   kicker,
   showTag,
   showChevron,
+  glass,
   headingLevel: Heading = "h3",
 }: {
   event: ExperienceEvent;
@@ -19,12 +20,15 @@ export function EventRowCard({
   kicker?: string;
   showTag?: boolean;
   showChevron?: boolean;
+  /** Glass visual system: the accent gradient border instead of the flat card surface.
+      Opt-in so screens outside the rollout keep the plain card (CLAUDE.md §6b). */
+  glass?: boolean;
   headingLevel?: "h2" | "h3";
 }) {
   const when = [event.city, event.dateLabel, event.timeLabel].filter(Boolean).join(" · ");
 
   return (
-    <article className={cx(cardSurface, cardInteractive, "flex items-center gap-4 p-3 md:p-4")}>
+    <article className={cx(glass ? "glass-edge rounded-card" : cardSurface, cardInteractive, "flex items-center gap-4 p-3 md:p-4")}>
       <div className="relative size-18 shrink-0 overflow-hidden rounded-thumb bg-neutral-800 md:size-20">
         <Image src={event.heroImage} alt="" fill sizes="80px" className="object-cover" />
       </div>
