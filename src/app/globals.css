@@ -47,6 +47,8 @@
   /* Footer sign-off: "EXPER" in Anton sized to span the content width (~2.5em wide) */
   --text-wordmark: clamp(5rem, 36vw, 27rem);
   --text-wordmark--line-height: 0.8;
+  --text-nav: 0.625rem;
+  --text-nav--line-height: 0.875rem;
   --text-label: 0.6875rem;
   --text-label--line-height: 1rem;
   --text-label--letter-spacing: 0.14em;
@@ -111,8 +113,10 @@
 }
 
 @utility glass-high {
-  background-color: rgb(0 0 0 / 0.35);
-  backdrop-filter: blur(40px) saturate(180%);
+  /* Light fill so shapes behind the bar stay readable; the lit rim, not the fill, defines
+     the shape. No backdrop-filter of its own: pair it with <ProgressiveBlur> (the tab bar
+     does) or a backdrop-blur utility, so the blur is never applied twice. */
+  background-color: rgb(0 0 0 / 0.2);
   border: 1px solid rgb(255 255 255 / 0.25);
   border-top-color: rgb(255 255 255 / 0.3);
   box-shadow: 0 18px 48px rgb(0 0 0 / 0.55);
@@ -122,11 +126,53 @@
    The brightness bump is what fakes refraction; the inset bottom shadow gives it depth so it
    reads as a lens rather than a flat chip. */
 @utility glass-droplet {
-  background-color: rgb(255 255 255 / 0.1);
+  /* A lens, not a chip: the fill is a radial gradient (darker at the centre, brighter at the
+     edges) over the blur, the rim is lit at the top and dim at the bottom, and the inner
+     highlight gives it thickness. Brightness is what fakes refraction. No coloured stroke. */
+  background-image: radial-gradient(circle at 50% 50%, rgb(255 255 255 / 0.04) 0%, rgb(255 255 255 / 0.12) 100%);
   backdrop-filter: blur(12px) saturate(180%) brightness(1.15);
-  border: 1px solid rgb(255 255 255 / 0.25);
-  border-top-color: rgb(255 255 255 / 0.4);
-  box-shadow: inset 0 -6px 12px -6px rgb(0 0 0 / 0.45);
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-top-color: rgb(255 255 255 / 0.35);
+  border-bottom-color: rgb(255 255 255 / 0.12);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    inset 0 -6px 12px -6px rgb(0 0 0 / 0.4);
+  /* keeps the edges smooth while the spring travels between tabs */
+  will-change: transform;
+}
+
+/* Arrival ripple: two rings expanding from the tab's icon, like a disturbance on water.
+   Transform and opacity only — the rings are a fixed 8px and scale up, so there is no layout
+   work. --ripple-scale is set per tab from its measured width. The pill's overflow-hidden
+   clips them to its rounded edge. */
+@keyframes glass-ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(var(--ripple-scale, 16));
+    opacity: 0;
+  }
+}
+
+@utility glass-ripple {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  border: 1.5px solid rgb(255 255 255 / 0.35);
+  background: transparent;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: glass-ripple 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* The second ring trails the first and travels less far, which is what reads as water */
+@utility glass-ripple-trail {
+  border-color: rgb(255 255 255 / 0.22);
+  animation-delay: 120ms;
+  --ripple-scale: var(--ripple-scale-trail, 11);
 }
 
 /* The droplet's specular arc: bright at the top, gone by half way down. */
@@ -155,10 +201,14 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  /* Takes the surface's shape: 0 on the rectangular CTA bar, fully round on the tab pill.
+     Without this the blurred layers keep square corners inside a rounded parent. */
+  border-radius: inherit;
 
   & > span {
     position: absolute;
     inset: 0;
+    border-radius: inherit;
   }
 
   & > span:nth-child(1) {
@@ -245,9 +295,17 @@
     cursor: pointer;
   }
 
-  :focus-visible {
+  /* The lime ring would sit on top of the tab bar's glass and read as a lime outline
+     around the active lens, so the bar's links opt out and get a white rim that hugs
+     their pill shape instead. Everything else keeps the lime ring. */
+  :focus-visible:not([data-tab-link]) {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+  }
+
+  [data-tab-link]:focus-visible {
+    outline: 2px solid rgb(255 255 255 / 0.75);
+    outline-offset: -2px;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -41,6 +41,7 @@ visible in any design and was chosen to complete the scale; re-check derived val
 | `text-display` | `clamp(2.25rem, 1.6rem + 3.2vw, 4rem)` | screen titles |
 | `text-title` | `clamp(1.625rem, 1.3rem + 1.6vw, 2.5rem)` | section and modal titles |
 | `text-wordmark` | `clamp(5rem, 36vw, 27rem)`, line-height 0.8 | site footer "EXPER" sign-off only; 36vw makes the Anton word (~2.5em wide) span the content width. Verified no overflow at 320–1280 (2026-09-22) |
+| `text-nav` | `0.625rem` / 0.875rem line-height | tab bar labels only (glass trial): five labels have to fit inside the droplet lens at 375px, where the 11px `text-label` is too wide |
 | `label-caps` (utility) | Space Grotesk 600, 11px, uppercase, 0.14em tracking | labels, buttons, tags (replaces ex1's JetBrains Mono) |
 | body | 14px mobile → 16px from `md` | set on `body` in globals.css |
 

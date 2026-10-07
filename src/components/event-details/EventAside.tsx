@@ -1,3 +1,4 @@
+import { ProgressiveBlur } from "@/components/glass/ProgressiveBlur";
 import { ArrowRightIcon, ChevronRightIcon, ClockIcon, PinIcon } from "@/components/icons";
 import { AvatarStack } from "@/components/ui/AvatarStack";
 import { ButtonLink } from "@/components/ui/Button";
@@ -87,12 +88,7 @@ export function EventAside({
           "md:px-8 lg:static lg:order-first lg:grid-cols-1 lg:gap-3 lg:rounded-card lg:border-t-0 lg:bg-transparent lg:p-5 lg:glass-card",
         )}
       >
-        <span aria-hidden="true" className="glass-ramp -z-10 lg:hidden">
-          <span />
-          <span />
-          <span />
-          <span />
-        </span>
+        <ProgressiveBlur className="-z-10 lg:hidden" />
         <span aria-hidden="true" className="glass-spec -z-10" />
 
         {fromTier && (
